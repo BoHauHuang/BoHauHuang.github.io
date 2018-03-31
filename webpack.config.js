@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './src/frontpage.js'
+    './src/index.js'
   ],
   output: {
     path: __dirname,

@@ -1,16 +1,26 @@
-import {jQuery as $} from 'jquery';
-import React,{Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import GameA from './components/game_a';
-import GameB from './components/game_b';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import reduxThunk from 'redux-thunk';
 
-class App extends Component {
+import App from './components/app';
+import reducers from './reducers';
+import Signin from './components/auth/signin';
+import Signout from './components/auth/signout';
+import Signup from './components/auth/signup';
 
-  render(){
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
-    return(
-      <GameB/>
-    );
-  }
-}
-ReactDOM.render(<App />, document.querySelector('.container'));
+ReactDOM.render(
+	<Provider store={createStoreWithMiddleware(reducers)}>
+		<Router history={browserHistory}>
+			<Route path="/" component={App}>
+				<Route path="/signin" component={Signin} />
+				<Route path="/signup" component={Signup} />
+				<Route path="/signout" component={Signout} />
+			</Route>
+		</Router>
+	</Provider>
+  , document.querySelector('.container'));

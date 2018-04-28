@@ -8,16 +8,19 @@ class Header extends Component {
 		if ( this.props.authenticated ) {
 			return [
 				<li className="nav-item">
-					<Link className="nav-link" to="/signout">Sign Out</Link> 
+					<Link className="nav-link" to="/signout">Sign Out</Link>
 				</li>
 			];
 		} else {
 			return [
 				<li className="nav-item">
-					<Link className="nav-link" to="/signin">Sign In</Link> 
+					<Link className="nav-link" to="/signin">Sign In</Link>
 				</li>,
 				<li className="nav-item">
-					<Link className="nav-link" to="/signup">Sign Up</Link> 
+					<Link className="nav-link" to="/signup">Sign Up</Link>
+				</li>,
+				<li className="nav-item">
+					<Link className="nav-link" to="/editevent">Edit Events</Link>
 				</li>
 			];
 		}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-
 class Signin extends Component {
 
 	handleFormSubmit({email, password}) {
@@ -19,7 +18,6 @@ class Signin extends Component {
 	}
 
 	render() {
-
 		const { handleSubmit } = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
@@ -31,7 +29,8 @@ class Signin extends Component {
 					<label>Password Confirmation: </label>
 					<Field name="confirm" component={this.renderInput} type="text" />
 				</fieldset>
-				<button action="submit" className="btn btn-primary">Sign in</button>
+				<button action="submit" className="btn btn-primary">Sign up</button>
+				<button action="cancel" className="btn btn-success">Cancel</button>
 			</form>
 		);
 	}
@@ -40,5 +39,5 @@ class Signin extends Component {
 Signin = reduxForm({
   form: "signup",
 })(Signin);
- 
+
 export default connect(null, actions)(Signin);

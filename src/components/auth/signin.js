@@ -30,6 +30,7 @@ class Signin extends Component {
 					<Field name="password" component={this.renderInput} type="text" />
 				</fieldset>
 				<button action="submit" className="btn btn-primary">Sign in</button>
+				<button type="button" className="btn btn-success">Cancel</button>
 			</form>
 		);
 	}
@@ -38,5 +39,5 @@ class Signin extends Component {
 Signin = reduxForm({
   form: "signin",
 })(Signin);
- 
+
 export default connect(null, actions)(Signin);

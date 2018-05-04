@@ -15,13 +15,14 @@ class EditEvent extends Component {
         $.each(data, function(index, item){
           $events.append(
             "<tr><td><div class='alert alert-info' role ='alert'><strong>" + item.name + "</strong> -- max: " + item.maxnum +" / min: "+ item.minnum + "</div></td>"+
-            "<td><button type='button' class='btn btn-warning'>Edit</button></td>" + "<td><button type='button' class='btn btn-danger'>Delete</button></td>" + "</tr>"
+            "<td><button type='button' class='btn btn-primary btn-circle btn-lg'>Edit</button></td>" + "<td><button type='button' class='btn btn-warning btn-circle btn-lg'>Delete</button></td>" + "</tr>"
           );
         })
       }
 		});
     return(
         <table id = "events">
+        <button type="button" className="btn btn-warning btn-circle btn-lg"><i className="glyphicon glyphicon-remove"></i></button>
         </table>
     )
   }

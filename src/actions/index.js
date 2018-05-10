@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = 'http://www.hy0936.com.tw:9980';
 import axios from 'axios';
 import { AUTH_USER, UNAUTH_USER } from './types';
 
@@ -8,13 +8,20 @@ export function signinUser({email, password}) {
 	// submit email/password
 	console.log("Signin......");
 	return function(dispatch) {
-		
-		axios.post(`${ROOT_URL}/signin`, {email, password})
+		//{'Authorization': "JWT "+ auth.token}
+		var creds = {
+			username: email, 
+			password: password
+		};
+		axios.post(`${ROOT_URL}/api-token-auth/`, creds)
 			.then((response) => {
+				console.log(response);
 				dispatch({type: AUTH_USER});
 				console.log("Signin Successfully");
+				console.log(response.data.token);
 				localStorage.setItem('token', response.data.token);
-				//browserHistory.push('/feature');
+				browserHistory.push('/');
+				// xhr.setRequestHeader("Authorization","JWT "+auth.token);
 			})
 			.catch((response) => {
 				console.log("Cannot signin");

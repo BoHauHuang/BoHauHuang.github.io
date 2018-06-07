@@ -23,8 +23,9 @@ ReactDOM.render(
 				<Route path="/signin" component={Signin} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/signout" component={Signout} />
-				<Route path="/viewevent" component={ViewEvent} />
-				<Route path="/editevent" component={EditEvent} />
+				<Route path="/eventlist" component={ViewEvent} />
+				<Route path="/editevent" component={Edit} />
+				<Route path="/edit" component={Edit} />
 				<Route path="/signup_event" component={SignupEvent} />
 			</Route>
 		</Router>

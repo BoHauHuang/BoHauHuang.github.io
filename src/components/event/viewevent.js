@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions';
+import edit from '../../actions';
 import { connect } from 'react-redux';
 
 class ViewEvent extends Component {
@@ -14,9 +13,4 @@ class ViewEvent extends Component {
   }
 }
 
-
-ViewEvent = reduxForm({
-  form: "viewevent",
-})(ViewEvent);
-
-export default connect(null, actions)(ViewEvent);
+export default connect(null, edit)(ViewEvent);

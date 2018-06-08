@@ -3,15 +3,38 @@ import * as editActions from '../../actions/edit';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-const Events = ({ match }) => {
-	console.log(match);
-	this.props.fetchEvent(match.params.id);
-	return (
-		<div className="alert alert-warning" role="alert">
-		HI
-		</div>
-  )
-};
+const mapStateToProps = (state)=>{
+	return { targetevent: state.event.event};
+}
 
+class Events extends Component{
 
-export default Events;
+	componentWillMount() {
+			this.props.fetchEvent(this.props.match.params.id);
+			console.log(this.props.targetevent);
+	}
+
+	renderEvent() {
+		//console.log(this.props.targetevent);
+		return this.props.targetevent.map((event) => {
+			return (
+			 <li className="list-group-item" key={event.id}>
+				<strong>{event.name}</strong>
+			 </li>
+			)
+		});
+	}
+
+	render() {
+    return (
+      <div>
+        <h3>Event</h3>
+        <ul className="list-group">
+          {this.renderEvent()}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps,editActions)(Events);

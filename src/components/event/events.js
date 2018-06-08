@@ -20,7 +20,8 @@ class Events extends Component {
        </li>
       )
     });
-	} else {
+	}
+	else {
 		return (
 			<div>Loading...</div>
 		)
@@ -39,7 +40,7 @@ class Events extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { events: state.event.all };
+  return { events: state.event.all};
 }
 
 

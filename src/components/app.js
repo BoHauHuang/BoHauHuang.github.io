@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import GameB from './game_b';
 import Header from './header';
 
 

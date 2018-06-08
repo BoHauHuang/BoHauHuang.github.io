@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://www.hy0936.com.tw:9980/api';
-const EVENT_URL = 'http://www.hy0936.com.tw:9980/api/Events/';
-const TEAM_URL = 'http://www.hy0936.com.tw:9980/api/Teams/';
+const ROOT_URL = 'http://www.hy0936.com.tw:9990/api';
+const EVENT_URL = 'http://www.hy0936.com.tw:9990/api/Events/';
+const TEAM_URL = 'http://www.hy0936.com.tw:9990/api/Teams/';
 
 import { FETCH_EVENTS, FETCH_EVENT } from './types';
 

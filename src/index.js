@@ -24,6 +24,12 @@ import EventShow from './components/event/show.js';
 import Events from './components/event/events.js';
 import SignupEvent from './components/event/signup_event.js';
 
+// Announcements
+import AnnouncementIndex from './components/announcement/announcement_index';
+import AnnouncementShow from './components/announcement/announcement_show';
+import AnnouncementUpdate from './components/announcement/announcement_edit';
+import AnnouncementCreate from './components/announcement/announcement_create';
+
 
 import { AUTH_USER, UNAUTH_USER } from './actions/types';
 
@@ -32,25 +38,33 @@ const store = createStoreWithMiddleware(reducers);
 const token = localStorage.getItem('token');
 
 if ( token ) {
-      store.dispatch({ type: AUTH_USER});
+      store.dispatch({ type: AUTH_USER });
 }
 
 
 ReactDOM.render(
-	<Provider store={store}>
- 		<Router history={withRouter.history}>
-			<Route path="/" component={(props)=> (
-        <App {...props}>
-          <Switch>
-  				    <Route path="/signin" component={Signin} />
-  				    <Route path="/signup" component={Signup} />
-  				    <Route path="/signout" component={Signout} />
-  				    <Route path="/events" component={Events} />
-  				    <Route path="/event/:id"  component={EventShow} />
-  				    <Route path="/signup_event" component={SignupEvent} match={match} />
-        </Switch>
-        </App>
-      )}/>
-		</Router>
-	</Provider>
+    <Provider store={store}>
+        <Router history={withRouter.history}>
+            <Route path="/" component={(props)=> (
+                <App {...props}>
+                    <Switch>
+                        <Route path="/signin" component={Signin} />
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/signout" component={Signout} />
+                        
+                        <Route path="/announcement/create"  component={AnnouncementCreate} />
+                        <Route path="/announcement/:id"  component={AnnouncementShow} />
+                        <Route path="/announcement/:id/edit"  component={AnnouncementUpdate} />
+                        <Route path="/announcement" component={AnnouncementIndex} />
+                        
+                        
+                        <Route path="/event/:id"  component={EventShow} />
+                        <Route path="/event" component={Events} />
+                        
+                        <Route path="/signup_event" component={SignupEvent} match={match} />
+                    </Switch>
+                </App>
+            )}/>
+        </Router>
+    </Provider>
   , document.querySelector('.container'));

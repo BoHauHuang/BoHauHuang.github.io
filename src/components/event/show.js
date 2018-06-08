@@ -3,10 +3,6 @@ import * as editActions from '../../actions/edit';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-const mapStateToProps = (state)=>{
-	return { targetevent: state.event.event};
-}
-
 class Events extends Component{
 
 	componentWillMount() {
@@ -35,6 +31,9 @@ class Events extends Component{
       </div>
     );
   }
+}
+function mapStateToProps(state){
+	return { targetevent: state.event.event};
 }
 
 export default connect(mapStateToProps,editActions)(Events);

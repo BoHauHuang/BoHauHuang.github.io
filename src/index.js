@@ -2,7 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, IndexRoute, browserHistory, match } from 'react-router';
+
+import {
+  HashRouter as Router,
+  Route,
+  IndexRoute,
+  browserHistory,
+  withRouter,
+  Switch,
+  match
+} from 'react-router-dom';
+
 import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
@@ -28,15 +38,19 @@ if ( token ) {
 
 ReactDOM.render(
 	<Provider store={store}>
- 		<Router history={browserHistory}>
-			<Route path="/" component={App}>
-				<Route path="/signin" component={Signin} />
-				<Route path="/signup" component={Signup} />
-				<Route path="/signout" component={Signout} />
-				<Route path="/event" component={Events} />
-				<Route path="/event/:id"  component={EventShow} />
-				<Route path="/signup_event" component={SignupEvent} match={match} />
-			</Route>
+ 		<Router history={withRouter.history}>
+			<Route path="/" component={(props)=> (
+        <App {...props}>
+          <Switch>
+  				    <Route path="/signin" component={Signin} />
+  				    <Route path="/signup" component={Signup} />
+  				    <Route path="/signout" component={Signout} />
+  				    <Route path="/events" component={Events} />
+  				    <Route path="/event/:id"  component={EventShow} />
+  				    <Route path="/signup_event" component={SignupEvent} match={match} />
+        </Switch>
+        </App>
+      )}/>
 		</Router>
 	</Provider>
   , document.querySelector('.container'));

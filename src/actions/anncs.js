@@ -1,4 +1,3 @@
-import { browserHistory } from 'react-router';
 const ROOT_URL = 'http://www.hy0936.com.tw:9980/api';
 import axios from 'axios';
 import { ANNCS_ADD, ANNCS_EDIT, ANNCS_DELETE } from './types';

@@ -13,19 +13,19 @@ class Header extends Component {
 			];
 		} else {
 			return [
-				<li className="nav-item">
+				<li className="nav-item" key="1">
 					<Link className="nav-link" to="/signin">Sign In</Link>
 				</li>,
-				<li className="nav-item">
+				<li className="nav-item" key="2">
 					<Link className="nav-link" to="/signup">Sign Up</Link>
 				</li>,
-				<li className="nav-item">
-					<Link className="nav-link" to="/eventlist">Edit Events</Link>
+				<li className="nav-item" key="3">
+					<Link className="nav-link" to="/event">Events</Link>
 				</li>,
-				<li className="nav-item">
+				<li className="nav-item" key="4">
 					<Link className="nav-link" to="/viewevent">View Events</Link>
 				</li>,
-				<li className="nav-item">
+				<li className="nav-item" key="5">
 					<Link className="nav-link" to="/signup_event">Signup Event</Link>
 				</li>
 			];

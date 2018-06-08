@@ -8,6 +8,7 @@ export default function(state = {}, action) {
 		case ANNCS_EDIT:
 			return {...state};
 		case ANNCS_DELETE:
+			
 	}
 
 	return state;

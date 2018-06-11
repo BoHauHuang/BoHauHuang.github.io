@@ -14,7 +14,7 @@ class Events extends Component {
     return this.props.events.map((event) => {
       return (
        <li className="list-group-item" key={event.id}>
-         <Link to={"/event/" + event.id}>
+         <Link to={"event/" + event.id}>
            <div><strong>{event.name}</strong></div>
          </Link>
        </li>

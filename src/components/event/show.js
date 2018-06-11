@@ -7,21 +7,25 @@ class Events extends Component{
 
 	componentWillMount() {
 			this.props.fetchEvent(this.props.match.params.id);
-			console.log(this.props.targetevent);
 	}
 
 	renderEvent() {
-		//console.log(this.props.targetevent);
-		return this.props.targetevent.map((event) => {
-			return (
-			 <li className="list-group-item" key={event.id}>
-				<strong>{event.name}</strong>
-			 </li>
-			)
-		});
+		 //console.log(this.props.targetevent);
+		 
+		 if(this.props.targetevent){
+			 return (
+ 			 <li className="list-group-item" key={this.props.targetevent.id}>
+ 				<strong>{this.props.targetevent.name}</strong>
+ 			 </li>
+ 			)
+		 }
+		else{
+			<a>Loading...</a>
+		}
 	}
 
 	render() {
+
     return (
       <div>
         <h3>Event</h3>
@@ -37,4 +41,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps,editActions)(Events);
-

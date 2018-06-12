@@ -11,7 +11,7 @@ class Events extends Component{
 
 	renderEvent() {
 		 //console.log(this.props.targetevent);
-		 
+
 		 if(this.props.targetevent){
 			 return (
  			 <li className="list-group-item" key={this.props.targetevent.id}>

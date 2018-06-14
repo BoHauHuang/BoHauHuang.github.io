@@ -4,7 +4,7 @@ import * as editActions from '../../actions/edit';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-class SignupEvent extends Component {
+class AddEvent extends Component {
   renderInput(field) {
     return (
       <div>

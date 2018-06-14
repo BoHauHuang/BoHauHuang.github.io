@@ -35,3 +35,9 @@ export function fetchEvent(event_id){
 			});
 	}
 }
+
+export function addEvent(){
+	return function(dispatch){
+		
+	}
+}

@@ -1,5 +1,5 @@
 import {withRouter} from "react-router-dom";
-const ROOT_URL = 'http://www.hy0936.com.tw:9990';
+const ROOT_URL = 'http://www.hy0936.com.tw:9990/';
 import axios from 'axios';
 import { AUTH_USER, UNAUTH_USER } from './types';
 

@@ -15,7 +15,7 @@ class Events extends Component {
       return (
        <li className="list-group-item" key={event.id}>
          <Link to={"event/" + event.id}>
-           <div><strong>{event.name}</strong></div>
+           <div><strong>{event.name}   <a className="btn icon-btn btn-danger" href="#"><span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Delete</a></strong></div>
          </Link>
        </li>
       )
@@ -31,7 +31,7 @@ class Events extends Component {
   render() {
     return (
       <div>
-        <h3>Events</h3>
+        <h3>Events   <a className="btn icon-btn btn-success" href="#"><span className="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</a></h3>
         <ul className="list-group">
           {this.renderEvents()}
         </ul>

@@ -10,13 +10,21 @@ class Events extends Component{
 	}
 
 	renderEvent() {
-		 //console.log(this.props.targetevent);
+		 console.log(this.props.targetevent);
 
 		 if(this.props.targetevent){
-			 return (
- 			 <li className="list-group-item" key={this.props.targetevent.id}>
- 				<strong>{this.props.targetevent.name}</strong>
- 			 </li>
+			 return(
+ 			 <ul className="list-group-item" key={this.props.targetevent.id}>
+ 				<li><strong>Event name:  {this.props.targetevent.name}</strong>
+        <button type="button" className="btn btn-warning btn-circle btn-lg"><i className="glyphicon glyphicon-remove"></i></button>
+
+        </li>
+        <li>Min member required: {this.props.targetevent.member_min}</li>
+        // find how many team have registered this event
+        <li>Team max: {this.props.matchteam.XXX}/{this.props.targetevent.team_max}</li>
+ 			 </ul>
+
+
  			)
 		 }
 		else{

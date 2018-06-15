@@ -13,10 +13,13 @@ class SignupEvent extends Component {
 		);
 	}
   register_team({name}){
-    console.log(name);
+    console.log({name});
     this.props.RegisterTeam({name});
   }
 
+  get_events(){
+    this.props.Get_Availble_Events();
+  }
   render(){
     const {handleSubmit} = this.props;
     return(
@@ -24,7 +27,13 @@ class SignupEvent extends Component {
           <fieldset className="form-group">
             <label>Team Name: </label>
             <Field name="name" component={this.renderInput} type="text" />
-            </fieldset>
+            <div className="sign_up_event">
+              <label>Events:</label>
+              <select className="form-control" id="exampleFormControlSelect1" component = {this.renderInput} type="text">
+                {this.get_events()}
+              </select>
+            </div>
+          </fieldset>
 
         <button action="submit" className="btn btn-primary">Submit</button>
         <button action="cancel" className="btn btn-success">Cancel</button>

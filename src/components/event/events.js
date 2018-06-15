@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as editActions from '../../actions/edit';
+import * as editActions from '../../actions/EventAction';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,13 +10,16 @@ class Events extends Component {
 	}
 
   renderEvents() {
+		//console.log(this.props.events);
   	if (this.props.events) {
     return this.props.events.map((event) => {
       return (
        <li className="list-group-item" key={event.id}>
          <Link to={"event/" + event.id}>
-           <div><strong>{event.name}   <a className="btn icon-btn btn-danger" href="#"><span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Delete</a></strong></div>
+           <div><strong>{event.name}</strong></div>
          </Link>
+				 <button onClick="this.props.deleteEvent()" className="btn btn-danger sm" >Delete</button>
+
        </li>
       )
     });
@@ -31,7 +34,7 @@ class Events extends Component {
   render() {
     return (
       <div>
-        <h3>Events   <a className="btn icon-btn btn-success" href="#"><span className="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</a></h3>
+        <h3>Events   <Link to={"event/add"} className="btn btn-success">Add</Link></h3>
         <ul className="list-group">
           {this.renderEvents()}
         </ul>

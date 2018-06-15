@@ -13,3 +13,7 @@ export const DELETE_ANNOUNCEMENT = 'delete_announcement';
 // Event
 export const FETCH_EVENT = 'fetch_event';
 export const FETCH_EVENTS = 'fetch_events';
+export const FETCH_TEAMS = 'fetch_teams';
+export const DELETE_EVENT = 'delete_event';
+export const ADD_EVENT = 'add_event';
+//Register events

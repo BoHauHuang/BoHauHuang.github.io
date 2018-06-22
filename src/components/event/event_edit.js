@@ -11,13 +11,13 @@ class Events extends Component {
   }
   update_event_Submit({name,teamMax,memMin, datetime}) {
     console.log({name,teamMax,memMin, datetime});
-    const event_id = this.props.match.params.id;
     this.props.updateEvent({event_id,name,teamMax,memMin, datetime});
     this.props.history.push('/event');
   }
   renderEvent(){
     if(this.props.targetevent){
       const {handleSubmit} = this.props;
+      const event_id = this.props.match.params.id;
       const event_name = this.props.targetevent.name;
       const team_Max = this.props.targetevent.member_min;
       const mem_Min = this.props.targetevent.team_max;

@@ -64,9 +64,10 @@ ReactDOM.render(
                         <Route path="/announcement" component={AnnouncementIndex} />
 
                         <Route path="/event/add" component={AddEvent} />
+                        <Route path="/event/:id/edit" component={EditEvent} />
                         <Route path="/event/:id"  component={EventShow} />
-                        <Route path="/event/:id/editor" component={EditEvent} />
                         <Route path="/event" component={Events} />
+
 
                         <Route path="/signup_event" component={SignupEvent} match={match} />
                     </Switch>

@@ -24,7 +24,7 @@ class Events extends Component{
 			 return(
  			 <ul className="list-group-item" key={event_id}>
  				<li><strong>Event name:  {event_name}</strong>
-        <Link to={event_id+"/editor"} className="btn btn-warning btn-sm">Edit</Link>
+        <Link to={event_id+"/edit"}><button className="btn btn-warning btn-sm">Edit</button></Link>
         </li>
         <li>Min member required: {mem_min}</li>
         <li>capacity: {capacity}/{maximum}</li>

@@ -18,7 +18,6 @@ class Events extends Component {
          <div><Link to={"event/" + event.id}>
            <strong>{event.name}</strong>
          </Link>
-				 <button className="btn btn-warning sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Edit </button>
 				 <button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Delete </button></div>
        </li>
       )
@@ -29,11 +28,10 @@ class Events extends Component {
 			<div>Loading...</div>
 		)
 	}
-  }
+}
 
   render() {
     return (
-
       <div>
         <h3>Events   <Link to={"event/add"} className="btn btn-success">Add</Link></h3>
         <ul className="list-group">
@@ -44,7 +42,9 @@ class Events extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { events: state.event.all};
+  return {
+		events: state.event.all
+	};
 }
 
 

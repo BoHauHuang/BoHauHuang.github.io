@@ -17,6 +17,7 @@ export function fetchEvents(){
 	return function(dispatch){
 		axios.get(EVENT_URL)
 			.then((response) => {
+				console.log(response.data);
 				dispatch({type: FETCH_EVENTS, payload: response.data});
 				console.log("Fetch all events successfully");
 			})
@@ -65,6 +66,7 @@ export function addEvent({name, teamMax, memMin, datetime}){
 		axios.post(EVENT_URL, data).then((response) => {
 						console.log(response);
 						console.log("Event added.");
+						location.reload();
 						dispatch({type: ADD_EVENT, payload: response.data});
 		})
 		.catch((response) => {
@@ -75,10 +77,12 @@ export function addEvent({name, teamMax, memMin, datetime}){
 }
 
 
-export function deleteEvent(event_id: event_id) {
+export function deleteEvent(event_id) {
 	return (dispatch) => {
+
 		axios.delete(`${EVENT_URL}` + event_id +'/')
 			.then((response) => {
+				location.reload();
 				dispatch({type: DELETE_EVENT});
 			})
 			.catch((response) => {

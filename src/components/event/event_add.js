@@ -19,7 +19,7 @@ class AddEvent extends Component {
 	}
 
   render(){
-    const {handleSubmit} = this.props;
+    const {handleSubmit} = this. props;
     return(
       <form onSubmit={handleSubmit(this.add_event_Submit.bind(this))}>
         <fieldset className="form-group">

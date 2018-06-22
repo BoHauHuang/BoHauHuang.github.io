@@ -15,11 +15,11 @@ class Events extends Component {
     return this.props.events.map((event) => {
       return (
        <li className="list-group-item" key={event.id}>
-         <Link to={"event/" + event.id}>
-           <div><strong>{event.name}</strong></div>
+         <div><Link to={"event/" + event.id}>
+           <strong>{event.name}</strong>
          </Link>
-				 <button onClick="this.props.deleteEvent()" className="btn btn-danger sm" >Delete</button>
-
+				 <button className="btn btn-warning sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Edit </button>
+				 <button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Delete </button></div>
        </li>
       )
     });
@@ -33,6 +33,7 @@ class Events extends Component {
 
   render() {
     return (
+
       <div>
         <h3>Events   <Link to={"event/add"} className="btn btn-success">Add</Link></h3>
         <ul className="list-group">

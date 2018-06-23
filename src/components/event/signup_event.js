@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions';
+import * as editActions from '../../actions/EventAction';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
-class SignupEvent extends Component {
+class Events extends Component {
 
   renderInput(field) {
 		return (
@@ -18,7 +19,7 @@ class SignupEvent extends Component {
   }
 
   get_events(){
-    this.props.Get_Availble_Events();
+    this.props.fetchEvents();
   }
   render(){
     const {handleSubmit} = this.props;
@@ -42,8 +43,10 @@ class SignupEvent extends Component {
   }
 }
 
-SignupEvent = reduxForm({
-  form: "signup_event",
-})(SignupEvent);
-
-export default connect(null, actions)(SignupEvent);
+function mapStateToProps(state){
+	return {
+		targetevent: state.event.event,
+		teams: state.event.teams
+	};
+}
+export default connect(mapStateToProps, editActions)(reduxForm({form: "SignupEvent"})(Events));

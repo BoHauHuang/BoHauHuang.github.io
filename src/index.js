@@ -65,7 +65,7 @@ ReactDOM.render(
 
                         <Route path="/event/add" component={AddEvent} />
                         <Route path="/event/:id/edit" component={EditEvent} />
-                        <Route path="event/:id/join" component={SignupEvent} match={match} />
+                        <Route path="/event/:id/join" component={SignupEvent} />
                         <Route path="/event/:id"  component={EventShow} />
                         <Route path="/event" component={Events} />
 

@@ -9,15 +9,23 @@ class Events extends Component {
       console.log("ID:",this.props.match.params.id);
       this.props.fetchEvent(this.props.match.params.id);
   }
+  renderInput(field) {
+		return (
+			<div>
+				<input className="form-control" {...field.input} type={field.type} />
+			</div>
+		);
+	}
   update_event_Submit({name,teamMax,memMin, datetime}) {
     console.log({name,teamMax,memMin, datetime});
+    const event_id = this.props.match.params.id;
     this.props.updateEvent({event_id,name,teamMax,memMin, datetime});
     this.props.history.push('/event');
   }
   renderEvent(){
     if(this.props.targetevent){
       const {handleSubmit} = this.props;
-      const event_id = this.props.match.params.id;
+
       const event_name = this.props.targetevent.name;
       const team_Max = this.props.targetevent.member_min;
       const mem_Min = this.props.targetevent.team_max;
@@ -27,13 +35,13 @@ class Events extends Component {
         <form onSubmit={handleSubmit(this.update_event_Submit.bind(this))}>
           <fieldset className="form-group">
             <label>Name: </label>
-            <input name="name" className="form-control" type="text" placeholder={event_name}/>
+            <Field name="name" className="form-control" component={this.renderInput} type="text"/>
             <label>Team maximum: </label>
-            <input name="teamMax" className="form-control" type="text" placeholder={team_Max}/>
+            <Field name="teamMax" className="form-control" component={this.renderInput} type="text"/>
             <label>Member minimum: </label>
-            <input name="memMin" className="form-control" type="text" placeholder={mem_Min} />
+            <Field name="memMin" className="form-control" component={this.renderInput} type="text" />
             <label>Time: </label>
-            <input name="datetime" className="form-control" type="datetime-local" placeholder="Hold Date" />
+            <Field name="datetime" className="form-control" component={this.renderInput} type="datetime-local"/>
           </fieldset>
 
         <button action="submit" className="btn btn-primary">Done</button>

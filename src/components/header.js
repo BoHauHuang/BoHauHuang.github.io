@@ -10,7 +10,8 @@ class Header extends Component {
 					<Link className="nav-link" to="/signout">Sign Out</Link>
 				</li>
 			];
-		} else {
+		}
+		else {
 			return [
 				<li className="nav-item" key="2">
 					<Link className="nav-link" to="/announcement">Announcements</Link>

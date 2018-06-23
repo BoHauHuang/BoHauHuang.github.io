@@ -8,17 +8,35 @@ class Events extends Component {
 	componentWillMount() {
     	this.props.fetchEvents();
 	}
+	admin_add(){
+		if(this.props.authenticated){
+			return[
+				<Link to={"event/add"} className="btn btn-success">Add</Link>
+			]
+		}
 
+	}
   renderEvents() {
 		//console.log(this.props.events);
-  	if (this.props.events) {
+  	if (this.props.events && this.props.authenticated) {
     return this.props.events.map((event) => {
       return (
        <li className="list-group-item" key={event.id}>
+         <div><Link to={"event/" + event.id}><strong>{event.name}</strong></Link></div>
+				 <div><button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Delete </button></div>
+       </li>
+      )
+    });
+
+	}
+	else if (this.props.events && !this.props.authenticated){
+		return this.props.events.map((event) => {
+      return (
+       <li className="list-group-item" key={event.id}>
          <div><Link to={"event/" + event.id}>
-           <strong>{event.name}</strong>
-         </Link>
-				 <button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Delete </button></div>
+				 	<div><strong>{event.name}</strong></div>
+				 	<div><button className="btn btn-info btn-sm">See more...</button></div>
+					</Link></div>
        </li>
       )
     });
@@ -33,7 +51,7 @@ class Events extends Component {
   render() {
     return (
       <div>
-        <h3>Events   <Link to={"event/add"} className="btn btn-success">Add</Link></h3>
+        <h3>Events   </h3>
         <ul className="list-group">
           {this.renderEvents()}
         </ul>

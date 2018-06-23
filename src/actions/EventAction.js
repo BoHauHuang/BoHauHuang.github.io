@@ -66,7 +66,7 @@ export function addEvent({name, teamMax, memMin, datetime}){
 		axios.post(EVENT_URL, data).then((response) => {
 						//console.log(response);
 						console.log("Event added.");
-						//location.reload();
+						location.reload();
 						dispatch({type: ADD_EVENT, payload: response.data});
 		})
 		.catch((response) => {
@@ -101,6 +101,7 @@ export function updateEvent({event_id, name, teamMax, memMin, datetime}){
 			axios.put(`${EVENT_URL}` + event_id +'/', data)
 			.then((response) =>{
 				console.log(response);
+				location.reload();
 				dispatch({type: UPDATE_EVENT});
 			})
 			.catch((response) => {

@@ -9,13 +9,6 @@ class Events extends Component {
       console.log("ID:",this.props.match.params.id);
       this.props.fetchEvent(this.props.match.params.id);
   }
-  renderInput(field) {
-		return (
-			<div>
-				<input className="form-control" {...field.input} type={field.type} />
-			</div>
-		);
-	}
   update_event_Submit({name,teamMax,memMin, datetime}) {
     console.log({name,teamMax,memMin, datetime});
     const event_id = this.props.match.params.id;
@@ -35,13 +28,13 @@ class Events extends Component {
         <form onSubmit={handleSubmit(this.update_event_Submit.bind(this))}>
           <fieldset className="form-group">
             <label>Name: </label>
-            <Field name="name" className="form-control" component={this.renderInput} type="text"/>
+            <Field name="name" className="form-control" component="input" placeholder={event_name} type="text"/>
             <label>Team maximum: </label>
-            <Field name="teamMax" className="form-control" component={this.renderInput} type="text"/>
+            <Field name="teamMax" className="form-control" component="input" placeholder={team_Max} type="text"/>
             <label>Member minimum: </label>
-            <Field name="memMin" className="form-control" component={this.renderInput} type="text" />
+            <Field name="memMin" className="form-control" component="input" placeholder={mem_Min} type="text" />
             <label>Time: </label>
-            <Field name="datetime" className="form-control" component={this.renderInput} type="datetime-local"/>
+            <Field name="datetime" className="form-control" component="input" placeholder={date_time} type="datetime-local"/>
           </fieldset>
 
         <button action="submit" className="btn btn-primary">Done</button>

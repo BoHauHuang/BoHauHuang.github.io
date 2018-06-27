@@ -64,7 +64,7 @@ class AnnouncementCreate extends Component {
             }
             placeholder={placeholder}
             type={type}
-            rows="20"
+            rows="8"
           />
           <div className="valid-feedback">{touched && !error}</div>
           <div className="invalid-feedback">

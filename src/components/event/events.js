@@ -8,14 +8,7 @@ class Events extends Component {
 	componentWillMount() {
     	this.props.fetchEvents();
 	}
-	admin_add(){
-		if(this.props.authenticated){
-			return[
-				<Link to={"event/add"} className="btn btn-success">Add</Link>
-			]
-		}
-
-	}
+	
   renderEvents() {
 		//console.log(this.props.events);
   	if (this.props.events && this.props.authenticated) {
@@ -51,10 +44,21 @@ class Events extends Component {
   render() {
     return (
       <div>
-        <h3>Events   </h3>
-        <ul className="list-group">
-          {this.renderEvents()}
-        </ul>
+				<div className="row mb-4 mt-4">
+					<div className="col">
+        		<h3>活動</h3>
+					</div>
+					<div className="col text-right">
+            <Link to={"/event/add"} className="btn btn-primary">
+              新增活動
+            </Link>
+          </div>
+				</div>
+				<div>
+					<ul className="list-group">
+						{this.renderEvents()}
+        	</ul>
+				</div>
       </div>
     );
   }

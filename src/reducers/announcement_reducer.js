@@ -12,20 +12,15 @@ const INITIAL_STATE = {
   currentAnnouncementId: ``
 };
 
-
 // [
 // {id: 3, haha:4}
 // ,
 // {id:5, haha:6}
 //         ]
-
 // ids: [3, 5],
 // objs: {
 //   3: { id:3, haha:4}
 //   5: { id:5, haha:6}
-
-
-
 // }
 
 export default function(state = INITIAL_STATE, action) {

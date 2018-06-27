@@ -65,14 +65,11 @@ export function initialUser() {
   return dispatch => {
     console.log("Start [initialUser]");
     let token = localStorage.getItem("token");
-    console.log({token});
+    //console.log({token});
     if ( token ) {
       token = jwtDecode(token);
       const user_id = token.payload.user_id;
       dispatch(fetchUser(user_id));
-    }
-    else{
-
     }
   };
 }

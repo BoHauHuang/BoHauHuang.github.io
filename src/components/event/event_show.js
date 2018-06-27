@@ -9,41 +9,30 @@ class Events extends Component{
 			this.props.fetchEvent(this.props.match.params.id);
 			this.props.fetchTeams();
 	}
-
-	renderEvent() {
-		 if(this.props.targetevent && this.props.authenticated){
-			//console.log(this.props.targetevent);
-			//console.log(this.props.teams);
-			const event_id = this.props.targetevent.id;
+	renderEventName(){
+		if(this.props.targetevent){
 			const event_name = this.props.targetevent.name;
-			const mem_min = this.props.targetevent.member_min;
- 		 	const maximum = this.props.targetevent.team_max;
-			const joined_people = this.props.teams.length;
- 		 	const capacity = (maximum-joined_people);
+			return(
+				<h3>{event_name}</h3>
+			);
+		}
 
-			 return(
- 			 <ul className="list-group-item" key={event_id}>
- 				<li><strong>Event name:  {event_name}</strong></li>
-        <li>Min member required: {mem_min}</li>
-        <li>capacity: {capacity}/{maximum}</li>
-				<Link to={event_id+"/edit"}><button className="btn btn-warning btn-sm">Edit</button></Link>
-				<button className="btn btn-info btn-sm" onClick={ ()=> {history.back(-1);}}>Done</button>
- 			 </ul>
- 			)
-		 }
-		 else if (this.props.targetevent && !this.props.authenticated) {
+	}
+	renderEvent() {
+		 if (this.props.targetevent) {
 			const event_id = this.props.targetevent.id;
- 			const event_name = this.props.targetevent.name;
+			const description = this.props.targetevent.description;
+			const rule = this.props.targetevent.rule;
  			const mem_min = this.props.targetevent.member_min;
   		const maximum = this.props.targetevent.team_max;
  			const joined_people = this.props.teams.length;
   		const capacity = (maximum-joined_people);
 			return(
-
 			<ul className="list-group-item" key={event_id}>
-			 <li><strong>Event name:  {event_name}</strong></li>
-			 <li>Min member required: {mem_min}</li>
-			 <li>capacity: {capacity}/{maximum}</li>
+				<li>活動簡介: {description} </li>
+				<li>活動規則: {rule} </li>
+			 	<li>團隊人數下限: {mem_min}</li>
+			 	<li>可報名隊伍數: {capacity}/{maximum}</li>
 
 			<Link to={event_id+"/join"}><button className="btn btn-primary btn-sm">Join!</button></Link>
 			<button className="btn btn-secondary btn-sm" onClick={ ()=> {history.back(-1);}}>Back</button>
@@ -57,12 +46,21 @@ class Events extends Component{
 
 	render() {
     return (
-      <div>
-        <h3>Event</h3>
+			<div>
+				<div className="row mb-4 mt-4">
+					<div className="col">
+        		{this.renderEventName()}
+					</div>
+					<div className="col text-right">
+            <Link to={"/event/edit"} className="btn btn-warning">
+              編輯活動
+            </Link>
+          </div>
+					</div>
         <ul className="list-group">
           {this.renderEvent()}
         </ul>
-      </div>
+			</div>
     );
   }
 }

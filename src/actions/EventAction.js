@@ -1,14 +1,18 @@
 import axios from 'axios';
 
 const ROOT_URL = 'http://www.hy0936.com.tw:9990/api';
-const EVENT_URL = 'http://www.hy0936.com.tw:9990/api/Events/';
-const TEAM_URL = 'http://www.hy0936.com.tw:9990/api/Teams/';
+const EVENT_URL = 'http://www.hy0936.com.tw:9990/api/event/';
+const TEAM_URL = 'http://www.hy0936.com.tw:9990/api/team/';
+const TEAMMEM_URL = 'http://www.hy0936.com.tw:9990/api/teammember/';
 
 import {
 	FETCH_EVENTS,
 	FETCH_EVENT,
 	FETCH_TEAMS,
- 	ADD_EVENT
+ 	ADD_EVENT,
+	DELETE_EVENT,
+	UPDATE_EVENT,
+	REGISTER_TEAM
 } from './types';
 
 const token = localStorage.getItem('token');
@@ -55,13 +59,16 @@ export function fetchTeams(){
 }
 
 
-export function addEvent({name, teamMax, memMin, datetime}){
+export function addEvent({name, description, rule, teamMax, memMin, reg_start, reg_end}){
 	return function(dispatch){
 		var data = {
-			name : name,
+			name: name,
+			description: description,
+			rule: rule,
 			team_max: teamMax,
 			member_min: memMin,
-			time: datetime
+			regist_start: reg_start,
+			regist_end: reg_end
 		};
 		axios.post(EVENT_URL, data).then((response) => {
 						//console.log(response);
@@ -91,13 +98,16 @@ export function deleteEvent(event_id) {
 	}
 }
 
-export function updateEvent({event_id, name, teamMax, memMin, datetime}){
+export function updateEvent({name, description, rule, teamMax, memMin, reg_start, reg_end}){
 	return(dispatch) => {
 			var data = {
-				name : name,
+				name: name,
+				description: description,
+				rule: rule,
 				team_max: teamMax,
 				member_min: memMin,
-				time: datetime
+				regist_start: reg_start,
+				regist_end: reg_end
 			};
 			axios.put(`${EVENT_URL}` + event_id +'/', data)
 			.then((response) =>{
@@ -109,5 +119,23 @@ export function updateEvent({event_id, name, teamMax, memMin, datetime}){
 				console.log("Edit the event failed.");
 				console.log(response);
 			});
+	}
+}
+
+export function RegisterTeam({name, event_id}){
+	return(dispatch) => {
+		var data = {
+			name: name,
+			event_id: event_id
+		};
+		axios.post(TEAM_URL,data)
+		.then((response) =>{
+			console.log("Joined the event successfully");
+			dispatch({type: REGISTER_TEAM});
+		})
+		.catch((response) =>{
+			console.log(data);
+			console.log("Joined failed");
+		})
 	}
 }

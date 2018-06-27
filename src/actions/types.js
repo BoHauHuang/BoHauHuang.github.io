@@ -1,5 +1,6 @@
 export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
+export const FETCH_USER = 'FETCH_USER';
 
 // Announcement
 export const FETCH_ANNOUNCEMENTS = 'fetch_announcements';

@@ -16,7 +16,7 @@ class Events extends Component{
 		}
 	}
 	renderEditEvent(){
-		if(this.props.targetevent){
+		if(this.props.targetevent && this.props.auth.role_id){
 			const event_id = this.props.targetevent.id;
 			return(
 				<Link to={"/event/"+event_id+"/edit"} className="btn btn-warning">
@@ -45,8 +45,8 @@ class Events extends Component{
 			<ul className="list-group-item" key={event_id}>
 				<li>活動簡介: {description} </li>
 				<li>活動規則: {rule} </li>
-			 	<li>團隊人數下限: {mem_min}</li>
-			 	<li>可報名隊伍數: {capacity}/{maximum}</li>
+			 	<li>最少團隊人數: {mem_min}</li>
+			 	<li>剩餘可報名隊伍數: {capacity}/{maximum}</li>
 
 			<Link to={"/event/"+event_id+"/join"} className="btn btn-primary btn-sm">Join!</Link>
 			<button className="btn btn-secondary btn-sm" onClick={ ()=> {history.back(-1);}}>Back</button>

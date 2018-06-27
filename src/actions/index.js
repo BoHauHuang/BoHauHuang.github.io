@@ -28,7 +28,7 @@ export function fetchUserProfile(id) {
   return function(dispatch) {
 
     console.log("Start [fetchUserProfile].");
-    console.log(id);
+    //console.log(id);
     axios
       .get(`${ROOT_URL}/user_profile/` + id + `/`)
       .then(response => {
@@ -46,7 +46,7 @@ export function fetchUser(id) {
   return function(dispatch) {
 
     console.log("Start [fetchUser].");
-    console.log(id);
+    //console.log(id);
     axios
       .get(`${ROOT_URL}/user/` + id + `/`)
       .then(response => {

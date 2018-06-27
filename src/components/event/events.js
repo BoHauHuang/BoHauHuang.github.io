@@ -8,28 +8,18 @@ class Events extends Component {
 	componentWillMount() {
     	this.props.fetchEvents();
 	}
-	
-  renderEvents() {
-		//console.log(this.props.events);
-  	if (this.props.events && this.props.authenticated) {
-    return this.props.events.map((event) => {
-      return (
-       <li className="list-group-item" key={event.id}>
-         <div><Link to={"event/" + event.id}><strong>{event.name}</strong></Link></div>
-				 <div><button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(event.id)}}> Delete </button></div>
-       </li>
-      )
-    });
 
-	}
-	else if (this.props.events && !this.props.authenticated){
+  renderEvents() {
+		if (this.props.events){
 		return this.props.events.map((event) => {
       return (
        <li className="list-group-item" key={event.id}>
-         <div><Link to={"event/" + event.id}>
-				 	<div><strong>{event.name}</strong></div>
-				 	<div><button className="btn btn-info btn-sm">See more...</button></div>
-					</Link></div>
+         <div>
+				 	<Link to={"event/" + event.id}>
+				 		<strong>{event.name}</strong>
+						<button className="btn btn-info btn-sm ">See more...</button>
+					</Link>
+				</div>
        </li>
       )
     });

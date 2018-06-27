@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const ROOT_URL = 'http://www.hy0936.com.tw:9990/api';
+const USER_URL = 'http://www.hy0936.com.tw:9990/api/user/';
 const EVENT_URL = 'http://www.hy0936.com.tw:9990/api/event/';
 const TEAM_URL = 'http://www.hy0936.com.tw:9990/api/team/';
 const TEAMMEM_URL = 'http://www.hy0936.com.tw:9990/api/teammember/';
@@ -12,7 +13,9 @@ import {
  	ADD_EVENT,
 	DELETE_EVENT,
 	UPDATE_EVENT,
-	REGISTER_TEAM
+	REGISTER_TEAM,
+	FETCH_PLAYERS,
+	REGISTER_PLAYER
 } from './types';
 
 const token = localStorage.getItem('token');
@@ -21,7 +24,7 @@ export function fetchEvents(){
 	return function(dispatch){
 		axios.get(EVENT_URL)
 			.then((response) => {
-				console.log(response.data);
+				//console.log(response.data);
 				dispatch({type: FETCH_EVENTS, payload: response.data});
 				console.log("Fetch all events successfully");
 			})
@@ -89,8 +92,9 @@ export function deleteEvent(event_id) {
 
 		axios.delete(`${EVENT_URL}` + event_id +'/')
 			.then((response) => {
-				location.reload();
 				dispatch({type: DELETE_EVENT});
+				location.assign("#/event");
+				location.reload();
 			})
 			.catch((response) => {
 				console.log(response);
@@ -98,7 +102,7 @@ export function deleteEvent(event_id) {
 	}
 }
 
-export function updateEvent({name, description, rule, teamMax, memMin, reg_start, reg_end}){
+export function updateEvent({event_id, name, description, rule, teamMax, memMin, reg_start, reg_end}){
 	return(dispatch) => {
 			var data = {
 				name: name,
@@ -122,6 +126,12 @@ export function updateEvent({name, description, rule, teamMax, memMin, reg_start
 	}
 }
 
+
+
+
+//////////////////////////register/////////////////////////////////
+
+
 export function RegisterTeam({name, event_id}){
 	return(dispatch) => {
 		var data = {
@@ -136,6 +146,66 @@ export function RegisterTeam({name, event_id}){
 		.catch((response) =>{
 			console.log(data);
 			console.log("Joined failed");
+		})
+	}
+}
+
+export function FetchPlayers({leader, member1, member2}){
+	return(dispatch) =>{
+		var data = [leader, member1, member2];
+		axios.get(USER_URL)
+		.then((response)=>{
+			console.log("fetch players successfully");
+			var length = response.data.length;
+			var num = data.length;
+
+			while(num>=0){
+				var count = 0;
+				while(count<length){
+					if(response.data[count].is_active &&  response.data[count].username == data[num]){
+						console.log(response.data[count]);
+						dispatch({type: FETCH_PLAYERS, payload: response.data[count]});
+					}
+					count++;
+				}
+				num--;
+			}
+		})
+		.catch((response) => {
+			console.log(response);
+			console.log("fetch failed");
+		})
+	}
+}
+
+export function FetchTeamID({team_name}){
+	return(dispatch)=>{
+		axios.get(TEAM_URL)
+		.then((response)=>{
+			var length = response.data.length;
+			while(length--){
+				if(response.data[length].name == team_name){
+					console.log("got team id.");
+					dispatch({type:FETCH_TEAMID, payload: response.data[length]});
+				}
+			}
+		})
+	}
+}
+
+export function RegisterPlayer({team_id, user_id}){
+	return(dispatch)=>{
+		var data = {
+			team_id: team_id,
+			user_id: user_id
+		}
+		axios.post(TEAMMEM_URL, data)
+		.then((response)=>{
+			dispatch({type: REGISTER_PLAYER});
+			console.log("UID: ", user_id, "register successfully");
+		})
+		.catch((response) => {
+			console.log("UID: ", user_id, "register failed");
 		})
 	}
 }

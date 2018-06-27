@@ -12,11 +12,25 @@ class Events extends Component{
 	renderEventName(){
 		if(this.props.targetevent){
 			const event_name = this.props.targetevent.name;
-			return(
-				<h3>{event_name}</h3>
-			);
+			return event_name;
 		}
-
+	}
+	renderEditEvent(){
+		if(this.props.targetevent){
+			const event_id = this.props.targetevent.id;
+			return(
+				<Link to={"/event/"+event_id+"/edit"} className="btn btn-warning">
+					編輯活動
+				</Link>
+			)
+		}
+	}
+	renderDeleteEvent(){
+		if(this.props.auth.role_id){
+			return(
+				<button className="btn btn-danger sm" onClick = {()=>{this.props.deleteEvent(this.props.targetevent.id)}}> 刪除活動 </button>
+			)
+		}
 	}
 	renderEvent() {
 		 if (this.props.targetevent) {
@@ -25,8 +39,8 @@ class Events extends Component{
 			const rule = this.props.targetevent.rule;
  			const mem_min = this.props.targetevent.member_min;
   		const maximum = this.props.targetevent.team_max;
- 			const joined_people = this.props.teams.length;
-  		const capacity = (maximum-joined_people);
+
+  		const capacity = (maximum);
 			return(
 			<ul className="list-group-item" key={event_id}>
 				<li>活動簡介: {description} </li>
@@ -34,7 +48,7 @@ class Events extends Component{
 			 	<li>團隊人數下限: {mem_min}</li>
 			 	<li>可報名隊伍數: {capacity}/{maximum}</li>
 
-			<Link to={event_id+"/join"}><button className="btn btn-primary btn-sm">Join!</button></Link>
+			<Link to={"/event/"+event_id+"/join"} className="btn btn-primary btn-sm">Join!</Link>
 			<button className="btn btn-secondary btn-sm" onClick={ ()=> {history.back(-1);}}>Back</button>
 			</ul>
 		 )
@@ -49,13 +63,9 @@ class Events extends Component{
 			<div>
 				<div className="row mb-4 mt-4">
 					<div className="col">
-        		{this.renderEventName()}
+        		<h3 className="md-4 mt-4">活動名稱 - {this.renderEventName()}   {this.renderEditEvent()}  {this.renderDeleteEvent()}</h3>
 					</div>
-					<div className="col text-right">
-            <Link to={"/event/edit"} className="btn btn-warning">
-              編輯活動
-            </Link>
-          </div>
+
 					</div>
         <ul className="list-group">
           {this.renderEvent()}
@@ -67,7 +77,10 @@ class Events extends Component{
 function mapStateToProps(state){
 	return {
 		targetevent: state.event.event,
-		teams: state.event.teams
+		teams: state.event.teams,
+		auth: {
+      role_id: state.auth.role_id
+		}
 	};
 }
 

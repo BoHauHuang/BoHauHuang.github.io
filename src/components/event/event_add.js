@@ -10,7 +10,7 @@ class AddEvent extends Component {
   add_event_Submit({name, description, rule, teamMax, memMin, reg_start, reg_end}) {
     console.log({name, description, rule, teamMax, memMin, reg_start, reg_end});
     this.props.addEvent({name, description, rule, teamMax, memMin, reg_start, reg_end});
-    this.props.history.push('/event');
+    //this.props.history.push('/event');
   }
 
   renderInput({
@@ -94,6 +94,7 @@ class AddEvent extends Component {
         </fieldset>
 
       <button action="submit" className="btn btn-primary">Submit</button>
+      <button action="Cancel" className="btn btn-secondary" onClick={ ()=> {history.back(-1);}}>Cancel</button>
     </form>
     </div>
     );

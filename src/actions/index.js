@@ -26,7 +26,7 @@ const setAuthorization = token => {
 
 export function fetchUserProfile(id) {
   return function(dispatch) {
-    
+
     console.log("Start [fetchUserProfile].");
     console.log(id);
     axios
@@ -44,7 +44,7 @@ export function fetchUserProfile(id) {
 
 export function fetchUser(id) {
   return function(dispatch) {
-    
+
     console.log("Start [fetchUser].");
     console.log(id);
     axios
@@ -65,10 +65,14 @@ export function initialUser() {
   return dispatch => {
     console.log("Start [initialUser]");
     let token = localStorage.getItem("token");
+    console.log({token});
     if ( token.length  ) {
       token = jwtDecode(token);
       const user_id = token.payload.user_id;
       dispatch(fetchUser(user_id));
+    }
+    else{
+      
     }
   };
 }
@@ -86,10 +90,10 @@ export function signinUser(creds) {
 
         localStorage.setItem("token", token);
         setAuthorization(token);
-       
+
         dispatch(initialUser());
         dispatch({ type: AUTH_USER });
-      
+
         history.push("/");
         // xhr.setRequestHeader("Authorization","JWT "+auth.token);
       })

@@ -66,13 +66,13 @@ export function initialUser() {
     console.log("Start [initialUser]");
     let token = localStorage.getItem("token");
     console.log({token});
-    if ( token.length  ) {
+    if ( token ) {
       token = jwtDecode(token);
       const user_id = token.payload.user_id;
       dispatch(fetchUser(user_id));
     }
     else{
-      
+
     }
   };
 }

@@ -16,6 +16,7 @@ export function fetchAnnouncements() {
 		axios.get(`${ROOT_URL}/announcement/`)
 			.then((response) => {
 				dispatch({type: FETCH_ANNOUNCEMENTS, payload: response.data});
+        
 			})
 			.catch((response) => {
 				console.log(response);

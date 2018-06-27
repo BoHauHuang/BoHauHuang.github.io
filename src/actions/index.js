@@ -4,7 +4,7 @@ const ROOT_URL = "http://www.hy0936.com.tw:9990/api";
 const AUTH_URL = "http://www.hy0936.com.tw:9990/api-token-auth/";
 
 import axios from "axios";
-import { AUTH_USER, UNAUTH_USER, FETCH_USER } from "./types";
+import { AUTH_USER, UNAUTH_USER, FETCH_USER, FETCH_USER_PROFILE } from "./types";
 import history from "../history";
 
 const token = localStorage.getItem("token");
@@ -24,21 +24,52 @@ const setAuthorization = token => {
   });
 };
 
+export function fetchUserProfile(id) {
+  return function(dispatch) {
+    
+    console.log("Start [fetchUserProfile].");
+    console.log(id);
+    axios
+      .get(`${ROOT_URL}/user_profile/` + id + `/`)
+      .then(response => {
+        console.log("Success [fetchUserProfile].");
+        dispatch({ type: FETCH_USER_PROFILE, payload: response.data });
+      })
+      .catch(response => {
+        console.log("Failed [fetchUserProfile].");
+        console.log(response);
+      });
+  };
+}
+
 export function fetchUser(id) {
   return function(dispatch) {
     
     console.log("Start [fetchUser].");
     console.log(id);
     axios
-      .get(`${ROOT_URL}/user_profile/` + id + `/`)
+      .get(`${ROOT_URL}/user/` + id + `/`)
       .then(response => {
         console.log("Success [fetchUser].");
         dispatch({ type: FETCH_USER, payload: response.data });
+        dispatch(fetchUserProfile(response.data.userid));
       })
       .catch(response => {
         console.log("Failed [fetchUser].");
         console.log(response);
       });
+  };
+}
+
+export function initialUser() {
+  return dispatch => {
+    console.log("Start [initialUser]");
+    let token = localStorage.getItem("token");
+    if ( token.length  ) {
+      token = jwtDecode(token);
+      const user_id = token.payload.user_id;
+      dispatch(fetchUser(user_id));
+    }
   };
 }
 
@@ -55,14 +86,10 @@ export function signinUser(creds) {
 
         localStorage.setItem("token", token);
         setAuthorization(token);
-        return jwtDecode(token);
-      })
-      .then(token => {
-        const user_id = token.payload.user_id;
-
+       
+        dispatch(initialUser());
         dispatch({ type: AUTH_USER });
-        dispatch(fetchUser(user_id));
-
+      
         history.push("/");
         // xhr.setRequestHeader("Authorization","JWT "+auth.token);
       })

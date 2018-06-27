@@ -90,6 +90,7 @@ export function deleteEvent(event_id) {
 			});
 	}
 }
+
 export function updateEvent({event_id, name, teamMax, memMin, datetime}){
 	return(dispatch) => {
 			var data = {

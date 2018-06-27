@@ -22,6 +22,11 @@ class Header extends Component {
     if (this.props.authenticated) {
       return [
         <li className="nav-item">
+          <Link className="nav-link" to="/profile/">
+            哈囉，{this.props.auth.name}
+          </Link>
+        </li>,
+        <li className="nav-item">
           <Link className="nav-link" to="/signout">
             登出
           </Link>
@@ -76,7 +81,10 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    auth: {
+      name: state.auth.name
+    }
   };
 };
 

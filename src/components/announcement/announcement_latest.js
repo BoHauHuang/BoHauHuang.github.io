@@ -14,8 +14,9 @@ class AnncouncementIndex extends Component {
     if (this.props.postIds) {
       console.log("IDs: ",this.props.postIds);
       var ids = this.props.postIds;
+      ids = ids.reverse();
       var length = this.props.postIds.length;
-      var latest = ids.slice(length-3 ,length-1);
+      var latest = ids.slice(0,3);
 
       console.log("Latest IDs: ",latest);
       return latest.map(id => {
@@ -92,7 +93,7 @@ class AnncouncementIndex extends Component {
         {this.renderAuthMessage()}
         <div className="row mb-4 mt-4">
           <div className="col">
-            <h3 className="">公告</h3>
+            <h3 className="">最新公告</h3>
           </div>
           <div className="col text-right">
             {this.renderCreateAnnouncement()}

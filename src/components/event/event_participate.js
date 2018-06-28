@@ -15,15 +15,16 @@ class EventParticipate extends Component {
     return teamIds.map(team_id => {
       if (this.props.isTeamLoaded && this.props.isEventLoaded) {
         const team = this.props.teamObjs[team_id];
-        console.log(team);
-        console.log(this.props.eventObjs);
+        //console.log(team);
+        //console.log(this.props.eventObjs);
         const event = this.props.eventObjs[team.event_id];
-        console.log(event);
+        //console.log(event);
         return (
           <div className="card mb-3">
             <h5 className="card-header">
-              報名表 － 
-              <Link to={"/event/" + event.id}>{event.name}</Link>
+              報名表 －
+              <Link to={"/event/" + event.id}>{event.name}</Link>{"  "}
+              <Link to={"/event/participation/"+ team.id} className="btn btn-warning"> 修改報名 </Link>
             </h5>
             <div className="card-body">
               <ul className="list-unstyled mt-ˋ">
@@ -67,6 +68,7 @@ class EventParticipate extends Component {
       }
     });
   }
+
 
   render() {
     if (this.props.userTeamIds) {

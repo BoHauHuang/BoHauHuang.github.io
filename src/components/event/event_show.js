@@ -35,45 +35,7 @@ class Events extends Component {
       );
     }
   }
-  // renderEvent() {
-
-  //     const event_id = this.props.event.id;
-  //     const description = this.props.event.description;
-  //     const rule = this.props.event.rule;
-  //     const mem_min = this.props.event.member_min;
-  //     const maximum = this.props.event.team_max;
-
-  //     const capacity = maximum;
-  //     return (
-  //       <ul className="list-group-item" key={event_id}>
-  //         <li>活動簡介: {description} </li>
-  //         <li>活動規則: {rule} </li>
-  //         <li>最少團隊人數: {mem_min}</li>
-  //         <li>
-  //           剩餘可報名隊伍數: {capacity}/{maximum}
-  //         </li>
-
-  //         <Link
-  //           to={"/event/" + event_id + "/join"}
-  //           className="btn btn-primary btn-sm"
-  //         >
-  //           Join!
-  //         </Link>
-  //         <button
-  //           className="btn btn-secondary btn-sm"
-  //           onClick={() => {
-  //             history.back(-1);
-  //           }}
-  //         >
-  //           Back
-  //         </button>
-  //       </ul>
-  //     );
-  //   } else {
-  //     <a>Loading...</a>;
-  //   }
-  // }
-
+  
   renderRegisterButton() {
     if (this.props.isTeamLoaded) {
       const { id, regist_start, regist_end, team_max } = this.props.event;

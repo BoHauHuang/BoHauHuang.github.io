@@ -57,20 +57,6 @@ class EventSignup extends Component {
     );
   }
 
-  // register_team({ team_name, leader, member1, member2 }) {
-  //   this.props.FetchPlayers({ leader, member1, member2 });
-  //   console.log({ leader, member1, member2 });
-  //   this.props.FetchTeamID({ team_name });
-  //   this.register_player();
-  // }
-
-  // register_player() {
-  //   if (this.props.myteam) {
-  //     const team_id = this.props.myteam.id;
-  //     this.props.RegisterPlayer({ team_id });
-  //   }
-  // }
-
   handleEventRegister({ name, members }) {
     members = members.map(member => {
       const match_id = this.props.auth.users.ids.find(
@@ -80,7 +66,7 @@ class EventSignup extends Component {
     });
     const event_id = this.props.event.id;
 
-    console.log({ name, members, event_id });
+    //console.log({ name, members, event_id });
 
     this.props.registerTeamToEvent({ name, members, event_id });
   }

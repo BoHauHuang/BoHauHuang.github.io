@@ -29,7 +29,7 @@ class AddEvent extends Component {
       regist_start: moment(regist_start).toISOString(),
       regist_end: moment(regist_end).toISOString(),
       event_start: moment(event_start).toISOString(),
-      event_en: moment(event_en).toISOString()
+      event_end: moment(event_end).toISOString()
     };
     this.props.createEvent(event);
   }

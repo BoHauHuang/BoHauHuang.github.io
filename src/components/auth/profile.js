@@ -22,6 +22,7 @@ class Profile extends Component{
   }
   renderJoinedEvent(){
     if(this.props.userTeamIds){
+      if(this.props.userTeamIds.length > 0){
     const teamIds = this.props.userTeamIds;
       return teamIds.map(team_id => {
         if(this.props.isTeamLoaded && this.props.isEventLoaded){
@@ -31,14 +32,16 @@ class Profile extends Component{
             <div><h5><li><Link to={"/event/" + event.id}>{event.name}</Link></li></h5></div>
           );
         }
-        if(!this.props.userTeamIds.length){
-          return(
-            <div><h6>你還沒有報名過任何活動哦！快去<Link to={"/event/"}>活動列表</Link>看看有沒有喜歡的活動吧！</h6></div>
-          )
-        }
+
       })
     }
+    else{
+      return(
+        <div><h6>你還沒有報名過任何活動哦！快去<Link to={"/event/"}>活動列表</Link>看看有沒有喜歡的活動吧！</h6></div>
+      )
+    }
   }
+}
 
   renderProfile(){
     if(this.props.userName){

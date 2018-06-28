@@ -35,13 +35,14 @@ import AddEvent from "./components/event/event_add.js";
 import EditEvent from "./components/event/event_edit.js";
 import EventParticipate from "./components/event/event_participate.js";
 import EventStatus from "./components/event/event_status.js";
+import EditParticipate from "./components/event/participate_edit.js";
 
 // Announcements
 import AnnouncementIndex from "./components/announcement/announcement_index";
 import AnnouncementShow from "./components/announcement/announcement_show";
 import AnnouncementUpdate from "./components/announcement/announcement_edit";
 import AnnouncementCreate from "./components/announcement/announcement_create";
-import AnnouncementLatest from "./components/announcement/announcement_latest"
+import AnnouncementLatest from "./components/announcement/announcement_latest";
 
 import { AUTH_USER, UNAUTH_USER } from "./actions/types";
 
@@ -80,9 +81,10 @@ ReactDOM.render(
                 component={AnnouncementUpdate}
               />
               <Route path="/announcement/:id" component={AnnouncementShow} />
-              
+
               <Route path="/event/add" component={AddEvent} />
               <Route path="/event/participation" component={EventParticipate} />
+              <Route path="/event/participation/:id" component={EditParticipate} />
               <Route path="/event/:id/edit" component={EditEvent} />
               <Route path="/event/:id/join" component={SignupEvent} />
               <Route path="/event/:id/status" component={EventStatus} />

@@ -11,8 +11,10 @@ class AnncouncementIndex extends Component {
   }
 
   renderPosts() {
-    if (this.props.postIds) {
-      return this.props.postIds.reverse().map(id => {
+    if (this.props.postObjs) {
+      if(this.props.postIds){
+      const all_announcements = this.props.postIds;
+      return all_announcements.map(id => {
         const post = this.props.postObjs[id];
         return (
           <article className="bdb mb-4" key={id}>
@@ -30,10 +32,11 @@ class AnncouncementIndex extends Component {
             <p className="mt-2">{post.description}</p>
           </article>
         );
-      });
+      }).reverse();
     } else {
       return <div>Loading...</div>;
     }
+  }
   }
 
   renderCreateAnnouncement() {

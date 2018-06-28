@@ -11,15 +11,9 @@ class AnncouncementIndex extends Component {
   }
 
   renderPosts() {
-    if (this.props.postIds) {
-      console.log("IDs: ",this.props.postIds);
-      var ids = this.props.postIds;
-      ids = ids.reverse();
-      var length = this.props.postIds.length;
-      var latest = ids.slice(0,3);
-
-      console.log("Latest IDs: ",latest);
-      return latest.map(id => {
+    if (this.props.postObjs) {
+      if(this.props.postIds){
+      return this.props.postIds.map(id => {
         const post = this.props.postObjs[id];
         return (
           <article className="bdb mb-4" key={id}>
@@ -37,10 +31,11 @@ class AnncouncementIndex extends Component {
             <p className="mt-2">{post.description}</p>
           </article>
         );
-      });
+      }).reverse().slice(0,3);
     } else {
       return <div>Loading...</div>;
     }
+  }
   }
 
   renderCreateAnnouncement() {

@@ -30,7 +30,7 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_ANNOUNCEMENTS:
-      const objs = Object.assign(
+      var objs = Object.assign(
         {},
         state.objs,
         ...action.payload.map(announcement => ({
@@ -44,7 +44,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, objs: Object.assign({}, state.objs, {[action.payload.id]: action.payload}), ids: state.ids, msg: `update_success` };
     case CREATE_ANNOUNCEMENT:
       return { ...state, objs: Object.assign({}, state.objs, {[action.payload.id]: action.payload}), ids: _.union(state.ids, [action.payload.id]), msg: `create_success` };
-    case DELETE_ANNOUNCEMENT: 
+    case DELETE_ANNOUNCEMENT:
       return { ...state, objs: _.omit(state.objs, action.payload), ids: state.ids.filter(id => id != action.payload), msg: `delete_success` };
     default:
       return state;

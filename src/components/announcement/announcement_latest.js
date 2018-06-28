@@ -77,7 +77,6 @@ class AnncouncementIndex extends Component {
           我們已發送一封驗證信至您註冊的電子信向中，請先進行驗證後再行登入。
         </div>
       );
-
     }
   }
 

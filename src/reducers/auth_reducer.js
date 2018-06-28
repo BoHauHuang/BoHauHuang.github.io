@@ -7,7 +7,8 @@ import {
   FETCH_USERS,
   SET_ISLOADING_TRUE,
   CREATE_SUCCESS,
-  AUTH_MSG
+  AUTH_MSG,
+  REGISTER_USER_TEAM
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -31,6 +32,7 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         sessionUser: {
+          id: action.payload.id,
           username: action.payload.username,
           email: action.payload.email,
           userid: action.payload.userid,
@@ -92,9 +94,31 @@ export default function(state = INITIAL_STATE, action) {
     case SET_ISLOADING_TRUE:
       return { ...state, isLoading: true };
     case CREATE_SUCCESS:
-      return { ...state, msg: 'user_create_success' };
-    case AUTH_MSG: 
+      return { ...state, msg: "user_create_success" };
+    case AUTH_MSG:
       return { ...state, message: action.payload };
+    case REGISTER_USER_TEAM:
+      const { team_id, user_id } = action.payload;
+      console.log(team_id, user_id, state.sessionUser.id);
+
+      if (user_id == state.sessionUser.id) {
+        console.log(_.union(state.sessionUser.teamIds, [team_id]));
+        return {
+          ...state,
+          sessionUser: {
+            id: state.sessionUser.id,
+            username: state.sessionUser.username,
+            email: state.sessionUser.email,
+            userid: state.sessionUser.userid,
+            isAdmin: state.sessionUser.isAdmin,
+            name: state.sessionUser.name,
+            gender: state.sessionUser.gender,
+            teamIds: _.union(state.sessionUser.teamIds, [team_id])
+          }
+        };
+      } else {
+        return state;
+      }
   }
   return state;
 }

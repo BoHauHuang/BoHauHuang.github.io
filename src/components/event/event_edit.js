@@ -24,19 +24,8 @@ class EditEvent extends Component {
     event_start,
     event_end
   }) {
-    console.log({
-      name,
-      description,
-      rule,
-      team_max,
-      member_min,
-      member_max,
-      regist_start,
-      regist_end,
-      event_start,
-      event_end
-    });
     this.props.updateEvent({
+      event_id: this.props.match.params.id,
       name,
       description,
       rule,

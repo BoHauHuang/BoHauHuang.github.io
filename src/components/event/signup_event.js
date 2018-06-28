@@ -4,6 +4,7 @@ import * as editActions from "../../actions/EventAction";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
+import history from "../../history";
 
 class EventSignup extends Component {
   constructor(props) {
@@ -148,6 +149,9 @@ class EventSignup extends Component {
         regist_end
       } = this.props.event;
       const { handleSubmit, fields } = this.props;
+      if ( !this.props.auth.authenticated ) {
+        history.push('/signin')
+      }
       return (
         <div>
           <div className="mb-4">

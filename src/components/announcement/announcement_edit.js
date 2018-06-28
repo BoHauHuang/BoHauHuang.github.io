@@ -161,7 +161,7 @@ class AnnouncementEdit extends Component {
                           action="submit"
                           className="btn btn-primary btn-lg"
                         >
-                          發佈
+                          更新
                         </button>
                       </div>
                     </div>

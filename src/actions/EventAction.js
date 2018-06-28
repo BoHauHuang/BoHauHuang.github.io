@@ -20,7 +20,8 @@ import {
   REGISTER_PLAYER,
   SET_EVENTS_LOADED,
   SET_TEAMS_LOADED,
-  EVENT_MSG
+  EVENT_MSG,
+  REGISTER_USER_TEAM
 } from "./types";
 
 const token = localStorage.getItem("token");
@@ -81,9 +82,11 @@ export function createEvent({
         console.log("Event added.");
         history.push('/event/');
         dispatch({ type: CREATE_EVENT, payload: response.data });
+        dispatch({ type: EVENT_MSG, payload: { type: 'success', 'msg': '新增活動成功！' } });
       })
       .catch(response => {
         console.log("Cannot add event.");
+        dispatch({ type: EVENT_MSG, payload: { type: 'danger', 'msg': '發生錯誤，無法新增該活動。' } });
         console.log(response);
       });
   };
@@ -91,19 +94,25 @@ export function createEvent({
 
 export function deleteEvent(event_id) {
   return dispatch => {
+    console.log("Start [deleteEvent]");
     axios
       .delete(`${EVENT_URL}` + event_id + "/")
       .then(response => {
+        console.log("Success [deleteEvent]");
         dispatch({ type: DELETE_EVENT, payload: event_id });
+        dispatch({ type: EVENT_MSG, payload: { type: 'success', 'msg': '成功刪除該活動。' } });
         history.push('/event/');
       })
       .catch(response => {
         console.log(response);
+        console.log("Failure [deleteEvent]");
+        dispatch({ type: EVENT_MSG, payload: { type: 'danger', 'msg': '發生錯誤，無法刪除該活動。' } });
       });
   };
 }
 
 export function updateEvent({
+  event_id,
   name,
   description,
   rule,
@@ -182,7 +191,7 @@ export function registerMemberToTeam({ team_id, user_id }) {
     axios
       .post(TEAMMEM_URL, data)
       .then(response => {
-        // dispatch({ type: CREATE_TEAM, payload: response.data});
+        dispatch({ type: REGISTER_USER_TEAM, payload: response.data});
         console.log("Success user_id: ", user_id, " [registerMemberToTeam]");
       })
       .catch(response => {

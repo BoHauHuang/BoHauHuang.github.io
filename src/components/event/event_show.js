@@ -15,13 +15,18 @@ class Events extends Component {
       const { id } = this.props.event;
       return (
         <div className="text-right">
+          <Link to={"/event/" + id + "/status"} className="btn btn-info">
+            檢視報名狀況
+          </Link>{" "}
           <Link to={"/event/" + id + "/edit"} className="btn btn-warning">
             編輯活動
           </Link>{" "}
           <button
             className="btn btn-danger sm"
             onClick={() => {
-              this.props.deleteEvent(id);
+              if ( confirm("確定要刪除嗎？") ) {
+                this.props.deleteEvent(id);
+              }
             }}
           >
             刪除活動
@@ -164,7 +169,7 @@ function mapStateToProps(state, ownProp) {
     isTeamLoaded: state.event.isTeamLoaded,
     isEventLoaded: state.event.isEventLoaded,
     auth: {
-      isAdmin: state.auth.isAdmin
+      isAdmin: state.auth.sessionUser.isAdmin
     }
   };
 }

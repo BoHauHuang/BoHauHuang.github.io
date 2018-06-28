@@ -22,11 +22,14 @@ class EventParticipate extends Component {
         return (
           <div className="card mb-3">
             <h5 className="card-header">
-              報名表 #{team_id}:{" "}
+              報名表 － 
               <Link to={"/event/" + event.id}>{event.name}</Link>
             </h5>
             <div className="card-body">
               <ul className="list-unstyled mt-ˋ">
+                <li>
+                  <i className="fas fa-info-circle w-20" /> 報名表統一編號：{team.id}
+                </li>
                 <li>
                   <i className="fas fa-info-circle w-20" /> 隊名：{team.name}
                 </li>

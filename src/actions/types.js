@@ -7,6 +7,7 @@ export const FETCH_USER_PROFILES = 'FETCH_USER_PROFILE';
 export const SET_ISLOADING_TRUE = 'SET_ISLOADING_TRUE';
 export const CREATE_SUCCESS = 'CREATE_SUCCESS';
 export const AUTH_MSG = 'AUTH_MSG';
+export const REGISTER_USER_TEAM = 'REGISTER_USER_TEAM';
 
 // Announcement
 export const FETCH_ANNOUNCEMENTS = 'fetch_announcements';

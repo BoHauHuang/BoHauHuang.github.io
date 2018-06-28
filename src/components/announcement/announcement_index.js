@@ -36,13 +36,6 @@ class AnncouncementIndex extends Component {
     }
   }
 
-<<<<<<< HEAD
-  renderAddAnnouncement(){
-    if(this.props.auth.isAdmin){
-      return(
-        <Link to={"/announcement/create"} className="btn btn-primary">建立新公告</Link>
-      )
-=======
   renderCreateAnnouncement() {
     if (this.props.auth.isAdmin) {
       return (
@@ -82,7 +75,6 @@ class AnncouncementIndex extends Component {
           我們已發送一封驗證信至您註冊的電子信向中，請先進行驗證後再行登入。
         </div>
       );
->>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
     }
   }
 
@@ -96,11 +88,7 @@ class AnncouncementIndex extends Component {
             <h3 className="">公告</h3>
           </div>
           <div className="col text-right">
-<<<<<<< HEAD
-            {this.renderAddAnnouncement()}
-=======
             {this.renderCreateAnnouncement()}
->>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
           </div>
         </div>
         <div>{this.renderPosts()}</div>
@@ -113,18 +101,11 @@ function mapStateToProps(state) {
   return {
     postIds: state.announcement.ids,
     postObjs: state.announcement.objs,
-<<<<<<< HEAD
-    auth: {
-      isAdmin: state.auth.sessionUser.isAdmin
-    }
-
-=======
     msg: state.announcement.msg,
     authMsg: state.auth.msg,
     auth: {
       isAdmin: state.auth.sessionUser.isAdmin
     }
->>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
   };
 }
 

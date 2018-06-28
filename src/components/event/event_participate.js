@@ -24,8 +24,9 @@ class EventParticipate extends Component {
             <h5 className="card-header">
               報名表 －
               <Link to={"/event/" + event.id}>{event.name}</Link>{"  "}
-              <Link to={"/event/participation/"+ team.id} className="btn btn-warning"> 修改報名 </Link>
+
             </h5>
+            <Link to={"/event/participation/"+ team.id} className="btn btn-warning"> 修改報名 </Link>
             <div className="card-body">
               <ul className="list-unstyled mt-ˋ">
                 <li>
@@ -53,6 +54,12 @@ class EventParticipate extends Component {
                   ).format("YYYY/MM/DD HH:mm:ss")}
                 </li>
               </ul>
+              <button className="btn btn-danger" onClick={()=>{
+                if ( confirm("確定要放棄參賽嗎？") ) {
+                  const team_id = team.id;
+                  this.props.deleteParticipate(team_id);
+                }
+              }}> 取消報名 </button>
             </div>
           </div>
         );

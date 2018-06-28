@@ -216,50 +216,18 @@ export function fetchTeams() {
   }
 }
 
-// export function FetchPlayers({ leader, member1, member2 }) {
-//   return dispatch => {
-//     var data = [leader, member1, member2];
-//     axios
-//       .get(USER_URL)
-//       .then(response => {
-//         console.log("fetch players successfully");
-//         var length = response.data.length;
-//         var num = data.length;
-
-//         while (num >= 0) {
-//           var count = 0;
-//           while (count < length) {
-//             if (
-//               response.data[count].is_active &&
-//               response.data[count].username == data[num]
-//             ) {
-//               console.log(response.data[count]);
-//               dispatch({ type: FETCH_PLAYERS, payload: response.data[count] });
-//             }
-//             count++;
-//           }
-//           num--;
-//         }
-//       })
-//       .catch(response => {
-//         console.log(response);
-//         console.log("fetch failed");
-//       });
-//   };
-// }
-
-// export function FetchTeamID({ team_name }) {
-//   return dispatch => {
-//     axios.get(TEAM_URL).then(response => {
-//       var length = response.data.length;
-//       while (length--) {
-//         if (response.data[length].name == team_name) {
-//           console.log("got team id.");
-//           dispatch({ type: FETCH_TEAMID, payload: response.data[length] });
-//         }
-//       }
-//     });
-//   };
-// }
-
-
+export function deleteParticipate(team_id){
+  return dispatch => {
+    console.log("Start [delete participation]");
+    axios
+      .delete(`${TEAM_URL}` + team_id + "/")
+      .then(response => {
+        console.log("Success [delete participation]");
+        history.push('/event/participation');
+      })
+      .catch(response => {
+        console.log(response);
+        console.log("Failure [delete participation]");
+      });
+  };
+}

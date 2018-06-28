@@ -46,13 +46,7 @@ class Events extends Component {
             <h3>體育活動</h3>
           </div>
           <div className="col text-right">
-<<<<<<< HEAD
             {this.renderAddEvent()}
-=======
-            <Link to={"/event/add"} className="btn btn-primary">
-              建立新活動
-            </Link>
->>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
           </div>
         </div>
         <div className="event-list">{this.renderEvents()}</div>

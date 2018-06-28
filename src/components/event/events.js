@@ -30,6 +30,14 @@ class Events extends Component {
     }
   }
 
+	renderAddEvent(){
+		if(this.props.auth.isAdmin){
+			return(
+				<Link to={"/event/add"} className="btn btn-primary">新增活動</Link>
+			)
+		}
+	}
+
   render() {
     return (
       <div>
@@ -38,9 +46,7 @@ class Events extends Component {
             <h3>活動</h3>
           </div>
           <div className="col text-right">
-            <Link to={"/event/add"} className="btn btn-primary">
-              新增活動
-            </Link>
+            {this.renderAddEvent()}
           </div>
         </div>
         <div className="event-list">{this.renderEvents()}</div>
@@ -53,7 +59,10 @@ function mapStateToProps(state) {
   return {
     events: state.event.event.ids.map(id => {
       return state.event.event.objs[id];
-    })
+    }),
+		auth: {
+      isAdmin: state.auth.sessionUser.isAdmin
+    }
   };
 }
 

@@ -28,6 +28,14 @@ class AnncouncementIndex extends Component {
     }
   }
 
+  renderAddAnnouncement(){
+    if(this.props.auth.isAdmin){
+      return(
+        <Link to={"/announcement/create"} className="btn btn-primary">建立新公告</Link>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
@@ -36,9 +44,7 @@ class AnncouncementIndex extends Component {
             <h3 className="">公告</h3>
           </div>
           <div className="col text-right">
-            <Link to={"/announcement/create"} className="btn btn-primary">
-              建立新公告
-            </Link>
+            {this.renderAddAnnouncement()}
           </div>
         </div>
         <div>
@@ -50,7 +56,14 @@ class AnncouncementIndex extends Component {
 }
 
 function mapStateToProps(state) {
-  return { postIds: state.announcement.ids, postObjs: state.announcement.objs };
+  return {
+    postIds: state.announcement.ids,
+    postObjs: state.announcement.objs,
+    auth: {
+      isAdmin: state.auth.sessionUser.isAdmin
+    }
+
+  };
 }
 
 export default connect(

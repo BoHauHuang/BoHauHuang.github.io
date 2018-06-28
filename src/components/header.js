@@ -24,7 +24,7 @@ class Header extends Component {
   }
 
   renderLinksRight() {
-    if (this.props.authenticated) {
+    if (this.props.authenticated && this.props.auth.name) {
       return [
         <li className="nav-item" key="1">
           <Link className="nav-link" to="/profile/">

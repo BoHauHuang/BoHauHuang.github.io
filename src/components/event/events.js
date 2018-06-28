@@ -90,7 +90,10 @@ class Events extends Component {
           <div className="col">
             <h3>體育活動</h3>
           </div>
-          {this.renderCreateEvent()}
+          
+          <div className="col text-right">
+            {this.renderCreateEvent()}
+          </div>
         </div>
         <table className="table event-list">
           <thead>
@@ -115,7 +118,7 @@ function mapStateToProps(state) {
     events: state.event.event.ids.map(id => {
       return state.event.event.objs[id];
     }),
-    auth: {
+		auth: {
       isAdmin: state.auth.sessionUser.isAdmin
     }
   };

@@ -25,6 +25,7 @@ import reducers from "./reducers";
 import Signin from "./components/auth/signin";
 import Signout from "./components/auth/signout";
 import Signup from "./components/auth/signup";
+import Profile from "./components/auth/profile.js";
 
 // Events
 import EventShow from "./components/event/event_show.js";
@@ -66,7 +67,7 @@ ReactDOM.render(
               <Route path="/signin" component={Signin} />
               <Route path="/signup" component={Signup} />
               <Route path="/signout" component={Signout} />
-
+              <Route path="/profile" component={Profile} />
               <Route
                 path="/announcement/create"
                 component={AnnouncementCreate}
@@ -84,7 +85,7 @@ ReactDOM.render(
               <Route path="/event/:id/join" component={SignupEvent} />
               <Route path="/event/:id/status" component={EventStatus} />
               <Route path="/event/:id" component={EventShow} />
-              
+
               <Route path="/event" component={Events} />
               <Route path="/" component={AnnouncementIndex} />
             </Switch>

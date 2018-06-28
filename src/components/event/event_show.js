@@ -70,24 +70,36 @@ class Events extends Component {
   // }
 
   renderRegisterButton() {
-    const { id, regist_start, regist_end } = this.props.event;
-    return (
-      <div className="mt-4">
-        <div className="text-center">
-          <Link
-            to={"/event/" + id + "/join"}
-            className="btn btn-primary btn-lg"
-          >
-            立即報名
-          </Link>
-          <div className="text-success mt-2"> 剩餘 20 隊</div>
+    if (this.props.isTeamLoaded) {
+      const { id, regist_start, regist_end, team_max } = this.props.event;
+      const left = team_max - this.props.eventTeamIds.length;
+      return (
+        <div className="mt-4">
+          <div className="text-center">
+            {left > 0 ? (
+              <Link
+                to={"/event/" + id + "/join"}
+                className="btn btn-primary btn-lg"
+              >
+                立即報名
+              </Link>
+            ) : (
+              <button className="btn btn-lg btn-secondary" disabled>
+                目前無法報名
+              </button>
+            )}
+            {left > 0 ? (
+              <div className="text-success mt-2"> 剩餘 {left} 隊</div>
+            ) : (
+              <div className="text-danger mt-2"> 已無剩餘名額</div>
+            )}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   render() {
-
     if (this.props.event) {
       const {
         id,
@@ -127,7 +139,7 @@ class Events extends Component {
                 </li>
                 <li>
                   <i className="fas fa-exclamation-circle w-20 mr-1" />{" "}
-                  隊伍數量：上限為 {member_max} 隊。
+                  隊伍數量：上限為 {team_max} 隊。
                 </li>
               </ul>
               {this.renderRegisterButton()}
@@ -140,9 +152,17 @@ class Events extends Component {
     }
   }
 }
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProp) {
   return {
+    userObjs: state.auth.users.objs,
+    eventTeamIds: state.event.team.ids.filter(
+      id => state.event.team.objs[id].event_id == ownProp.match.params.id
+    ),
+    eventObjs: state.event.event.objs,
+    teamObjs: state.event.team.objs,
     event: state.event.event.objs[state.event.currentEventId],
+    isTeamLoaded: state.event.isTeamLoaded,
+    isEventLoaded: state.event.isEventLoaded,
     auth: {
       isAdmin: state.auth.isAdmin
     }

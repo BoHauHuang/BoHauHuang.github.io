@@ -33,6 +33,7 @@ import SignupEvent from "./components/event/signup_event.js";
 import AddEvent from "./components/event/event_add.js";
 import EditEvent from "./components/event/event_edit.js";
 import EventParticipate from "./components/event/event_participate.js";
+import EventStatus from "./components/event/event_status.js";
 
 // Announcements
 import AnnouncementIndex from "./components/announcement/announcement_index";
@@ -76,11 +77,12 @@ ReactDOM.render(
               />
               <Route path="/announcement/:id" component={AnnouncementShow} />
               
-
+              
               <Route path="/event/add" component={AddEvent} />
               <Route path="/event/participation" component={EventParticipate} />
               <Route path="/event/:id/edit" component={EditEvent} />
               <Route path="/event/:id/join" component={SignupEvent} />
+              <Route path="/event/:id/status" component={EventStatus} />
               <Route path="/event/:id" component={EventShow} />
               
               <Route path="/event" component={Events} />

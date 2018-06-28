@@ -12,14 +12,15 @@ import {
   FETCH_EVENTS,
   FETCH_EVENT,
   FETCH_TEAMS,
-  ADD_EVENT,
+  CREATE_EVENT,
   DELETE_EVENT,
   UPDATE_EVENT,
   REGISTER_TEAM,
   FETCH_PLAYERS,
   REGISTER_PLAYER,
   SET_EVENTS_LOADED,
-  SET_TEAMS_LOADED
+  SET_TEAMS_LOADED,
+  EVENT_MSG
 } from "./types";
 
 const token = localStorage.getItem("token");
@@ -48,32 +49,38 @@ export function fetchEvent(event_id) {
   };
 }
 
-export function addEvent({
+export function createEvent({
   name,
   description,
   rule,
-  teamMax,
-  memMin,
-  reg_start,
-  reg_end
+  team_max,
+  member_min,
+  member_max,
+  regist_start,
+  regist_end,
+  event_start,
+  event_end
 }) {
   return function(dispatch) {
     var data = {
-      name: name,
-      description: description,
-      rule: rule,
-      team_max: teamMax,
-      member_min: memMin,
-      regist_start: reg_start,
-      regist_end: reg_end
+      name,
+      description,
+      rule,
+      team_max,
+      member_min,
+      member_max,
+      regist_start,
+      regist_end,
+      event_start,
+      event_end
     };
     axios
       .post(EVENT_URL, data)
       .then(response => {
         //console.log(response);
         console.log("Event added.");
-        location.reload();
-        dispatch({ type: ADD_EVENT, payload: response.data });
+        history.push('/event/');
+        dispatch({ type: CREATE_EVENT, payload: response.data });
       })
       .catch(response => {
         console.log("Cannot add event.");
@@ -87,9 +94,8 @@ export function deleteEvent(event_id) {
     axios
       .delete(`${EVENT_URL}` + event_id + "/")
       .then(response => {
-        dispatch({ type: DELETE_EVENT });
-        location.assign("#/event");
-        location.reload();
+        dispatch({ type: DELETE_EVENT, payload: event_id });
+        history.push('/event/');
       })
       .catch(response => {
         console.log(response);
@@ -98,31 +104,36 @@ export function deleteEvent(event_id) {
 }
 
 export function updateEvent({
-  event_id,
   name,
   description,
   rule,
-  teamMax,
-  memMin,
-  reg_start,
-  reg_end
+  team_max,
+  member_min,
+  member_max,
+  regist_start,
+  regist_end,
+  event_start,
+  event_end
 }) {
-  return dispatch => {
+  return function(dispatch) {
     var data = {
-      name: name,
-      description: description,
-      rule: rule,
-      team_max: teamMax,
-      member_min: memMin,
-      regist_start: reg_start,
-      regist_end: reg_end
+      name,
+      description,
+      rule,
+      team_max,
+      member_min,
+      member_max,
+      regist_start,
+      regist_end,
+      event_start,
+      event_end
     };
     axios
       .put(`${EVENT_URL}` + event_id + "/", data)
       .then(response => {
         console.log(response);
-        location.reload();
-        dispatch({ type: UPDATE_EVENT });
+        history.push(`/event/${event_id}`);
+        dispatch({ type: UPDATE_EVENT, payload: response.data });
       })
       .catch(response => {
         console.log("Edit the event failed.");

@@ -14,6 +14,11 @@ class Header extends Component {
         <Link className="nav-link" to="/event">
           活動
         </Link>
+      </li>,
+      <li className="nav-item" key="4">
+        <Link className="nav-link" to="/event/participation">
+          報名紀錄
+        </Link>
       </li>
     ];
   }
@@ -21,12 +26,12 @@ class Header extends Component {
   renderLinksRight() {
     if (this.props.authenticated) {
       return [
-        <li className="nav-item">
+        <li className="nav-item" key="1">
           <Link className="nav-link" to="/profile/">
             哈囉，{this.props.auth.name}
           </Link>
         </li>,
-        <li className="nav-item">
+        <li className="nav-item" key="2">
           <Link className="nav-link" to="/signout">
             登出
           </Link>
@@ -83,7 +88,7 @@ const mapStateToProps = state => {
   return {
     authenticated: state.auth.authenticated,
     auth: {
-      name: state.auth.name
+      name: state.auth.sessionUser.name
     }
   };
 };

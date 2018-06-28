@@ -19,6 +19,11 @@ body {
   background: #f8f9fa;
 }
 
+.w-20 {
+  width: 24px;
+  text-align: center;
+}
+
 /*!
  * https://github.com/YouCanBookMe/react-datetime
  */

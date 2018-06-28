@@ -4,7 +4,15 @@ const ROOT_URL = "http://www.hy0936.com.tw:9990/api";
 const AUTH_URL = "http://www.hy0936.com.tw:9990/api-token-auth/";
 
 import axios from "axios";
-import { AUTH_USER, UNAUTH_USER, FETCH_USER, FETCH_USER_PROFILE } from "./types";
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+  FETCH_USERS,
+  FETCH_USER_PROFILES,
+  FETCH_SESSION_USER,
+  FETCH_SESSION_USER_PROFILE,
+  SET_ISLOADING_TRUE
+} from "./types";
 import history from "../history";
 
 const token = localStorage.getItem("token");
@@ -24,35 +32,73 @@ const setAuthorization = token => {
   });
 };
 
-export function fetchUserProfile(id) {
+export function fetchUsers() {
   return function(dispatch) {
-
-    console.log("Start [fetchUserProfile].");
+    console.log("Start [fetchUsers].");
     //console.log(id);
+    dispatch({type: SET_ISLOADING_TRUE});
     axios
-      .get(`${ROOT_URL}/user_profile/` + id + `/`)
+      .get(`${ROOT_URL}/user/`)
       .then(response => {
-        console.log("Success [fetchUserProfile].");
-        dispatch({ type: FETCH_USER_PROFILE, payload: response.data });
+        console.log("Success [fetchUsers].");
+        dispatch({ type: FETCH_USERS, payload: response.data });
+        dispatch(fetchUserProfiles());
       })
       .catch(response => {
-        console.log("Failed [fetchUserProfile].");
+        console.log("Failed [fetchUsers].");
         console.log(response);
       });
   };
 }
 
+export function fetchUserProfiles(id) {
+  return function(dispatch) {
+    console.log("Start [fetchUserProfiles].");
+    axios
+      .get(`${ROOT_URL}/user_profile/`)
+      .then(response => {
+        console.log("Success [fetchUserProfiles].");
+        dispatch({ type: FETCH_USER_PROFILES, payload: response.data });
+      })
+      .catch(response => {
+        console.log("Failed [fetchUserProfiles].");
+        console.log(response);
+      });
+  };
+}
+
+export function fetchUserProfile(id) {
+  return function(dispatch) {
+    console.log("Start [fetchUserProfile].");
+    // console.log(id);
+    if (id) {
+      axios
+        .get(`${ROOT_URL}/user_profile/` + id + `/`)
+        .then(response => {
+          console.log("Success [fetchUserProfile].");
+          dispatch({
+            type: FETCH_SESSION_USER_PROFILE,
+            payload: response.data
+          });
+        })
+        .catch(response => {
+          console.log("Failed [fetchUserProfile].");
+          console.log(response);
+        });
+    }
+  };
+}
+
 export function fetchUser(id) {
   return function(dispatch) {
-
     console.log("Start [fetchUser].");
     //console.log(id);
     axios
       .get(`${ROOT_URL}/user/` + id + `/`)
       .then(response => {
         console.log("Success [fetchUser].");
-        dispatch({ type: FETCH_USER, payload: response.data });
-        dispatch(fetchUserProfile(response.data.userid));
+        dispatch({ type: FETCH_SESSION_USER, payload: response.data });
+        dispatch(fetchUserProfile(response.data.userid, "session"));
       })
       .catch(response => {
         console.log("Failed [fetchUser].");
@@ -66,7 +112,7 @@ export function initialUser() {
     console.log("Start [initialUser]");
     let token = localStorage.getItem("token");
     //console.log({token});
-    if ( token ) {
+    if (token) {
       token = jwtDecode(token);
       const user_id = token.payload.user_id;
       dispatch(fetchUser(user_id));

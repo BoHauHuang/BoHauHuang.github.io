@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 class App extends Component {
   componentWillMount() {
     this.props.initialUser();
+    this.props.fetchUsers();
   }
 
   render() {

@@ -40,6 +40,8 @@ class AnncouncementShow extends Component {
   }
 }
 
+
+
 const mapStateToProps = state => {
   return {
     currentAnnouncementId: state.announcement.currentAnnouncementId,

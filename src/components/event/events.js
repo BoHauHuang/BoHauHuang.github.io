@@ -131,6 +131,7 @@ class Events extends Component {
           </div>
 
           <div className="col text-right">{this.renderCreateEvent()}</div>
+
         </div>
         <table className="table event-list">
           <thead>

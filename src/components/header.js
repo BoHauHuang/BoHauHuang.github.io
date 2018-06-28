@@ -6,7 +6,7 @@ class Header extends Component {
   renderLinks() {
     return [
       <li className="nav-item" key="2">
-        <Link className="nav-link" to="/">
+        <Link className="nav-link" to="/announcement">
           所有公告
         </Link>
       </li>,

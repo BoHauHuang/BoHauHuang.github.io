@@ -12,7 +12,7 @@ class AnncouncementIndex extends Component {
 
   renderPosts() {
     if (this.props.postIds) {
-      return this.props.postIds.map(id => {
+      return this.props.postIds.reverse().map(id => {
         const post = this.props.postObjs[id];
         return (
           <article className="bdb mb-4" key={id}>

@@ -41,6 +41,7 @@ import AnnouncementIndex from "./components/announcement/announcement_index";
 import AnnouncementShow from "./components/announcement/announcement_show";
 import AnnouncementUpdate from "./components/announcement/announcement_edit";
 import AnnouncementCreate from "./components/announcement/announcement_create";
+import AnnouncementLatest from "./components/announcement/announcement_latest"
 
 import { AUTH_USER, UNAUTH_USER } from "./actions/types";
 
@@ -68,6 +69,8 @@ ReactDOM.render(
               <Route path="/signup" component={Signup} />
               <Route path="/signout" component={Signout} />
               <Route path="/profile" component={Profile} />
+
+              <Route path="/announcement" component={AnnouncementIndex} />
               <Route
                 path="/announcement/create"
                 component={AnnouncementCreate}
@@ -78,7 +81,6 @@ ReactDOM.render(
               />
               <Route path="/announcement/:id" component={AnnouncementShow} />
               
-              
               <Route path="/event/add" component={AddEvent} />
               <Route path="/event/participation" component={EventParticipate} />
               <Route path="/event/:id/edit" component={EditEvent} />
@@ -87,7 +89,7 @@ ReactDOM.render(
               <Route path="/event/:id" component={EventShow} />
 
               <Route path="/event" component={Events} />
-              <Route path="/" component={AnnouncementIndex} />
+              <Route path="/" component={AnnouncementLatest} />
             </Switch>
           </App>
         )}

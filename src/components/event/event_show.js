@@ -106,7 +106,7 @@ class Events extends Component {
             <header className="mb-4">
               <div className="row">
                 <div className="col">
-                  <h3 className="md-4 mt-4 event-title">{name}</h3>
+                  <h3 className="md-4 event-title">{name}</h3>
                 </div>
                 <div className="col">{this.renderControlButtons()}</div>
               </div>

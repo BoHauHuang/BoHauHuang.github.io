@@ -35,11 +35,11 @@ class Events extends Component {
       <div>
         <div className="row mb-4 mt-4">
           <div className="col">
-            <h3>活動</h3>
+            <h3>體育活動</h3>
           </div>
           <div className="col text-right">
             <Link to={"/event/add"} className="btn btn-primary">
-              新增活動
+              建立新活動
             </Link>
           </div>
         </div>

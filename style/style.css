@@ -24,6 +24,10 @@ body {
   text-align: center;
 }
 
+.announcement-meta {
+  font-size: .9rem;
+}
+
 /*!
  * https://github.com/YouCanBookMe/react-datetime
  */

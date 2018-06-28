@@ -6,10 +6,14 @@ import {
   DELETE_ANNOUNCEMENT
 } from "../actions/types";
 
+import _ from 'lodash';
+
 const INITIAL_STATE = {
   ids: [],
   objs: {},
-  currentAnnouncementId: ``
+  currentAnnouncementId: ``,
+  isLoaded: false,
+  msg: ``
 };
 
 // [
@@ -33,11 +37,15 @@ export default function(state = INITIAL_STATE, action) {
           [announcement.id]: announcement
         }))
       );
-      return { ...state, objs, ids: Object.keys(objs) };
+      return { ...state, objs, ids: Object.keys(objs), isLoaded: true, msg: `fetch_all_success` };
     case FETCH_ANNOUNCEMENT:
-      return { ...state, currentAnnouncementId: action.payload };
+      return { ...state, currentAnnouncementId: action.payload, msg: `fetch_success` };
     case UPDATE_ANNOUNCEMENT:
-      return { ...state, objs: Object.assign({}, state.objs, action.payload), ids: state.ids };
+      return { ...state, objs: Object.assign({}, state.objs, {[action.payload.id]: action.payload}), ids: state.ids, msg: `update_success` };
+    case CREATE_ANNOUNCEMENT:
+      return { ...state, objs: Object.assign({}, state.objs, {[action.payload.id]: action.payload}), ids: _.union(state.ids, [action.payload.id]), msg: `create_success` };
+    case DELETE_ANNOUNCEMENT: 
+      return { ...state, objs: _.omit(state.objs, action.payload), ids: state.ids.filter(id => id != action.payload), msg: `delete_success` };
     default:
       return state;
   }

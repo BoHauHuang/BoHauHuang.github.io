@@ -15,11 +15,15 @@ class Header extends Component {
           體育活動
         </Link>
       </li>,
-      <li className="nav-item" key="4">
-        <Link className="nav-link" to="/event/participation">
-          報名紀錄
-        </Link>
-      </li>
+      this.props.authenticated && this.props.auth.name ? (
+        <li className="nav-item" key="4">
+          <Link className="nav-link" to="/event/participation">
+            報名紀錄
+          </Link>
+        </li>
+      ) : (
+        ""
+      )
     ];
   }
 

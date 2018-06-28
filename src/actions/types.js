@@ -23,7 +23,7 @@ export const FETCH_EVENTS = 'fetch_events';
 export const FETCH_TEAMS = 'fetch_teams';
 export const SET_TEAMS_LOADED = 'SET_TEAMS_LOADED';
 
-export const ADD_EVENT = 'add_event';
+export const CREATE_EVENT = 'CREATE_EVENT';
 export const DELETE_EVENT = 'delete_event';
 export const UPDATE_EVENT = 'update_event';
 export const SET_EVENTS_LOADED = 'SET_EVENTS_LOADED';
@@ -31,3 +31,4 @@ export const REGISTER_TEAM = 'register_team';
 export const FETCH_PLAYERS = 'fetch_players';
 export const REGISTER_PLAYER = 'register_player';
 export const FETCH_TEAMID = 'fetch_teamid';
+export const EVENT_MSG = 'EVENT_MSG';

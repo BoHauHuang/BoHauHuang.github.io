@@ -3,14 +3,15 @@ import {
   FETCH_EVENT,
   FETCH_TEAMS,
   DELETE_EVENT,
-  ADD_EVENT,
+  CREATE_EVENT,
   UPDATE_EVENT,
   REGISTER_TEAM,
   FETCH_PLAYERS,
   REGISTER_PLAYER,
   FETCH_TEAMID,
   SET_EVENTS_LOADED,
-  SET_TEAMS_LOADED
+  SET_TEAMS_LOADED,
+  EVENT_MSG
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -24,7 +25,8 @@ const INITIAL_STATE = {
     ids: [],
     objs: {}
   },
-  isTeamLoaded: false
+  isTeamLoaded: false,
+  message: ``
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -53,6 +55,16 @@ export default function(state = INITIAL_STATE, action) {
         },
         isEventLoaded: true
       };
+    case CREATE_EVENT:
+      return {
+        ...state,
+        event: {
+          objs: Object.assign({}, state.event.objs, {[action.payload.id]: action.payload}),
+          ids: _.union(state.ids, [action.payload.id])
+        },
+        isEventLoaded: true, 
+        message: ``
+      };
     case FETCH_TEAMS:
       const team_objs = Object.assign(
         {},
@@ -75,6 +87,8 @@ export default function(state = INITIAL_STATE, action) {
         team: { objs: team_objs, ids: Object.keys(team_objs) },
         isTeamLoaded: true
       };
+    case EVENT_MSG: 
+      return { ...state, message: action.payload };
     default:
       return state;
   }

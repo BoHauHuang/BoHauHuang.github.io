@@ -11,30 +11,27 @@ class AddEvent extends Component {
     name,
     description,
     rule,
-    teamMax,
-    memMin,
-    reg_start,
-    reg_end
+    team_max,
+    member_min,
+    member_max,
+    regist_start,
+    regist_end,
+    event_start,
+    event_end
   }) {
-    console.log({
+    const event = {
       name,
       description,
       rule,
-      teamMax,
-      memMin,
-      reg_start,
-      reg_end
-    });
-    this.props.addEvent({
-      name,
-      description,
-      rule,
-      teamMax,
-      memMin,
-      reg_start,
-      reg_end
-    });
-    //this.props.history.push('/event');
+      team_max,
+      member_min,
+      member_max,
+      regist_start: moment(regist_start).toISOString(),
+      regist_end: moment(regist_end).toISOString(),
+      event_start: moment(event_start).toISOString(),
+      event_en: moment(event_en).toISOString()
+    };
+    this.props.createEvent(event);
   }
 
   renderInput({
@@ -104,74 +101,110 @@ class AddEvent extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
+      <div className="mb-4">
         <h3 className="mb-4 mt-4">建立新活動</h3>
         <form onSubmit={handleSubmit(this.add_event_Submit.bind(this))}>
-          <fieldset className="form-group">
-            <Field
-              name="name"
-              type="text"
-              component={this.renderInput}
-              size="col-form-label-lg"
-              placeholder="活動名稱"
-            />
-            <Field
-              name="description"
-              type="description"
-              component={this.renderTextarea}
-              size="col-form-label"
-              rows="4"
-              label="活動簡介"
-              placeholder="關於此活動..."
-            />
-            <Field
-              name="rule"
-              type="text"
-              component={this.renderTextarea}
-              size="col-form-label"
-              label="活動規則"
-              rows="3"
-              placeholder="規則..."
-            />
-            <Field
-              name="teamMax"
-              component={this.renderInput}
-              type="number"
-              size="col-form-label"
-              label="參加隊伍上限: "
-            />
-            <Field
-              name="memMin"
-              component={this.renderInput}
-              type="number"
-              size="col-form-label"
-              label="團隊人數下限: "
-            />
-            <Field
-              name="reg_start"
-              component={this.renderInput}
-              type="datetime-local"
-              label="報名開始時間: "
-            />
-            <Field
-              name="reg_end"
-              component={this.renderInput}
-              type="datetime-local"
-              label="報名截止時間: "
-            />
-          </fieldset>
-
-          <button action="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <Field
+            name="name"
+            type="text"
+            component={this.renderInput}
+            size="col-form-label-lg"
+            placeholder="活動名稱"
+          />
+          <div className="row">
+            <div className="col">
+              <Field
+                name="event_start"
+                component={this.renderInput}
+                type="datetime-local"
+                label="活動開始時間"
+              />
+            </div>
+            <div className="col">
+              <Field
+                name="event_end"
+                component={this.renderInput}
+                type="datetime-local"
+                label="活動結束時間"
+              />
+            </div>
+          </div>
+          <Field
+            name="description"
+            type="description"
+            component={this.renderTextarea}
+            size="col-form-label"
+            rows="6"
+            label="活動簡介"
+            placeholder="這個活動是關於什麼？"
+          />
+          <Field
+            name="rule"
+            type="text"
+            component={this.renderTextarea}
+            size="col-form-label"
+            label="活動規則"
+            rows="6"
+            placeholder="規則..."
+          />
+          <div className="row">
+            <div className="col">
+              <Field
+                name="team_max"
+                component={this.renderInput}
+                type="number"
+                size="col-form-label"
+                label="參加隊伍上限"
+              />
+            </div>
+            <div className="col">
+              <Field
+                name="member_min"
+                component={this.renderInput}
+                type="number"
+                size="col-form-label"
+                label="團隊人數下限"
+              />
+            </div>
+            <div className="col">
+              <Field
+                name="member_max"
+                component={this.renderInput}
+                type="number"
+                size="col-form-label"
+                label="團隊人數上限"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <Field
+                name="regist_start"
+                component={this.renderInput}
+                type="datetime-local"
+                label="報名開始時間"
+              />
+            </div>
+            <div className="col">
+              <Field
+                name="regist_end"
+                component={this.renderInput}
+                type="datetime-local"
+                label="報名截止時間"
+              />
+            </div>
+          </div>
+          <button action="submit" className="btn btn-primary btn-lg">
+            送出
+          </button>{" "}
           <button
             action="Cancel"
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-lg"
             onClick={() => {
               history.back(-1);
             }}
           >
-            Cancel
+            取消操作
           </button>
         </form>
       </div>
@@ -190,17 +223,35 @@ const validate = values => {
   if (!values.rule) {
     errors.rule = "請輸入活動規則";
   }
-  if (!values.teamMax) {
-    errors.teamMax = "請輸入隊伍上限";
+  if (!values.team_max) {
+    errors.team_max = "請輸入隊伍數量上限";
   }
-  if (!values.memMin) {
-    errors.memMin = "請輸入團隊人數下限";
+  if (!values.member_min) {
+    errors.member_min = "請輸入團隊人數下限";
   }
-  if (!values.reg_start) {
-    errors.reg_start = "請輸入報名開始時間";
+  if (!values.member_max) {
+    errors.member_max = "請輸入團隊人數上限";
   }
-  if (!values.reg_end) {
-    errors.reg_end = "請輸入報名截止時間";
+  if (values.member_max && values.member_max < values.member_min) {
+    errors.member_max = "團隊人數下限不可以大於上限";
+  }
+  if (!values.regist_start) {
+    errors.regist_start = "請輸入報名開始時間";
+  }
+  if (!values.regist_end) {
+    errors.regist_end = "請輸入報名截止時間";
+  }
+  if (values.regist_end && values.regist_end < values.regist_start) {
+    errors.regist_end = "報名截止時間不可高於報名開始時間";
+  }
+  if (!values.event_start) {
+    errors.event_start = "請輸入活動開始時間";
+  }
+  if (!values.event_end) {
+    errors.event_end = "請輸入活動截止時間";
+  }
+  if (values.event_end && values.event_end < values.event_start) {
+    errors.event_end = "活動結束時間不可早於活動開始時間";
   }
   return errors;
 };

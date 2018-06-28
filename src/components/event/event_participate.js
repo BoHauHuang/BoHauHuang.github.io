@@ -20,22 +20,28 @@ class EventParticipate extends Component {
         const event = this.props.eventObjs[team.event_id];
         console.log(event);
         return (
-          <div className="card mb-2">
+          <div className="card mb-3">
             <h5 className="card-header">
               報名表 #{team_id}:{" "}
               <Link to={"/event/" + event.id}>{event.name}</Link>
             </h5>
             <div className="card-body">
-              <ul className="list-unstyled mt-2">
+              <ul className="list-unstyled mt-ˋ">
                 <li>
                   <i className="fas fa-info-circle w-20" /> 隊名：{team.name}
                 </li>
                 <li>
-                  <i className="fas fa-users w-20" /> 隊員：{team.userIds.map(
-                    user_id => {
-                      return <span>{this.props.userObjs[user_id].name} </span>;
-                    }
-                  )}
+                  <i className="fas fa-users w-20" /> 隊員：
+                  <ul>
+                    {team.userIds.map(user_id => {
+                      return (
+                        <li>
+                          {this.props.userObjs[user_id].username} －{" "}
+                          {this.props.userObjs[user_id].name}{" "}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </li>
                 <li>
                   <i className="fas fa-clock w-20" /> 送出報名時間：{moment(
@@ -67,7 +73,7 @@ class EventParticipate extends Component {
             <header className="mb-4">
               <div className="row">
                 <div className="col">
-                  <h3 className="md-4 mt-4 event-title">我的報名紀錄</h3>
+                  <h3 className="event-title">我的報名紀錄</h3>
                 </div>
               </div>
             </header>

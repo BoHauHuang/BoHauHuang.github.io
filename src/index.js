@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import Datetime from 'react-datetime';
 import moment from 'moment';
+import _ from 'lodash';
 
 import {
   HashRouter as Router,
@@ -70,12 +71,12 @@ ReactDOM.render(
                 path="/announcement/create"
                 component={AnnouncementCreate}
               />
-              <Route path="/announcement/:id" component={AnnouncementShow} />
               <Route
                 path="/announcement/:id/edit"
                 component={AnnouncementUpdate}
               />
-              <Route path="/announcement" component={AnnouncementIndex} />
+              <Route path="/announcement/:id" component={AnnouncementShow} />
+              
 
               <Route path="/event/add" component={AddEvent} />
               <Route path="/event/participation" component={EventParticipate} />
@@ -84,6 +85,7 @@ ReactDOM.render(
               <Route path="/event/:id" component={EventShow} />
 
               <Route path="/event" component={Events} />
+              <Route path="/" component={AnnouncementIndex} />
             </Switch>
           </App>
         )}

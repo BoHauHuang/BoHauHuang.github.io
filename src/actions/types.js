@@ -5,6 +5,8 @@ export const FETCH_SESSION_USER_PROFILE = 'FETCH_SESSION_USER_PROFILE';
 export const FETCH_USERS = 'FETCH_USERS';
 export const FETCH_USER_PROFILES = 'FETCH_USER_PROFILE';
 export const SET_ISLOADING_TRUE = 'SET_ISLOADING_TRUE';
+export const CREATE_SUCCESS = 'CREATE_SUCCESS';
+export const AUTH_MSG = 'AUTH_MSG';
 
 // Announcement
 export const FETCH_ANNOUNCEMENTS = 'fetch_announcements';

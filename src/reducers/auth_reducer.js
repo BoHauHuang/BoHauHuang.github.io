@@ -5,7 +5,9 @@ import {
   FETCH_SESSION_USER_PROFILE,
   FETCH_USER_PROFILES,
   FETCH_USERS,
-  SET_ISLOADING_TRUE
+  SET_ISLOADING_TRUE,
+  CREATE_SUCCESS,
+  AUTH_MSG
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -13,7 +15,8 @@ const INITIAL_STATE = {
   sessionUser: { name: "" },
   users: { objs: {}, ids: [] },
   isLoading: true,
-  teamIds: []
+  teamIds: [],
+  msg: ``
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -88,6 +91,10 @@ export default function(state = INITIAL_STATE, action) {
       };
     case SET_ISLOADING_TRUE:
       return { ...state, isLoading: true };
+    case CREATE_SUCCESS:
+      return { ...state, msg: 'user_create_success' };
+    case AUTH_MSG: 
+      return { ...state, message: action.payload };
   }
   return state;
 }

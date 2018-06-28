@@ -31,10 +31,21 @@ class Signin extends Component {
     );
   }
 
+  renderMessage() {
+    if (this.props.message) {
+      return (
+        <div className={`mt-4 alert alert-${this.props.message.type}`} role="alert">
+          {this.props.message.msg}
+        </div>
+      );
+    }
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
       <div>
+        {this.renderMessage()}
         <h3 className="mb-4 mt-4">登入系統</h3>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
@@ -68,6 +79,13 @@ const validate = values => {
   if (!values.password) {
     errors.password = "請輸入你的密碼";
   }
+  return errors;
+};
+
+const mapStateToProps = state => {
+  return {
+    message: state.auth.message
+  };
 };
 
 Signin = reduxForm({
@@ -76,6 +94,6 @@ Signin = reduxForm({
 })(Signin);
 
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(Signin);

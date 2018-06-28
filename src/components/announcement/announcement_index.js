@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import * as actions from "../../actions/announcement";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 class AnncouncementIndex extends Component {
   componentWillMount() {
@@ -14,12 +15,19 @@ class AnncouncementIndex extends Component {
       return this.props.postIds.map(id => {
         const post = this.props.postObjs[id];
         return (
-          <article className="bdb mb-2" key={id}>
-            <Link to={"/announcement/" + id}>
-              <h4>{ post.title }</h4>
-            </Link>
-            { post.created_at }
-            <p>{post.description}</p>
+          <article className="bdb mb-4" key={id}>
+            <header>
+              <Link to={"/announcement/" + id}>
+                <h4 className="announcement-title">{post.title}</h4>
+              </Link>
+              <div className="announcement-meta">
+                <i className="w-20 fas fa-clock" /> 公告時間：{moment(
+                  post.announce_start
+                ).format("YYYY/MM/DD")}{" "}
+                ～ {moment(post.announce_end).format("YYYY/MM/DD")}
+              </div>
+            </header>
+            <p className="mt-2">{post.description}</p>
           </article>
         );
       });
@@ -28,28 +36,74 @@ class AnncouncementIndex extends Component {
     }
   }
 
+<<<<<<< HEAD
   renderAddAnnouncement(){
     if(this.props.auth.isAdmin){
       return(
         <Link to={"/announcement/create"} className="btn btn-primary">建立新公告</Link>
       )
+=======
+  renderCreateAnnouncement() {
+    if (this.props.auth.isAdmin) {
+      return (
+        <Link to={"/announcement/create"} className="btn btn-primary">
+          建立新公告
+        </Link>
+      );
+    }
+  }
+
+  renderMessage() {
+    if (this.props.msg == "delete_success") {
+      return (
+        <div className="mt-4 alert alert-success" role="alert">
+          成功刪除文章。
+        </div>
+      );
+    } else if (this.props.msg == "create_success") {
+      return (
+        <div className="mt-4 alert alert-success" role="alert">
+          成功新增文章。
+        </div>
+      );
+    } else if (this.props.msg == "update_success") {
+      return (
+        <div className="mt-4 alert alert-success" role="alert">
+          成功修改文章。
+        </div>
+      );
+    }
+  }
+
+  renderAuthMessage() {
+    if (this.props.authMsg == "user_create_success") {
+      return (
+        <div className="mt-4 alert alert-warning" role="alert">
+          我們已發送一封驗證信至您註冊的電子信向中，請先進行驗證後再行登入。
+        </div>
+      );
+>>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
     }
   }
 
   render() {
     return (
       <div>
+        {this.renderMessage()}
+        {this.renderAuthMessage()}
         <div className="row mb-4 mt-4">
           <div className="col">
             <h3 className="">公告</h3>
           </div>
           <div className="col text-right">
+<<<<<<< HEAD
             {this.renderAddAnnouncement()}
+=======
+            {this.renderCreateAnnouncement()}
+>>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
           </div>
         </div>
-        <div>
-          {this.renderPosts()}
-        </div>
+        <div>{this.renderPosts()}</div>
       </div>
     );
   }
@@ -59,10 +113,18 @@ function mapStateToProps(state) {
   return {
     postIds: state.announcement.ids,
     postObjs: state.announcement.objs,
+<<<<<<< HEAD
     auth: {
       isAdmin: state.auth.sessionUser.isAdmin
     }
 
+=======
+    msg: state.announcement.msg,
+    authMsg: state.auth.msg,
+    auth: {
+      isAdmin: state.auth.sessionUser.isAdmin
+    }
+>>>>>>> 5623ccf5f147587f47beb29c5c4cd1d714aa8f81
   };
 }
 

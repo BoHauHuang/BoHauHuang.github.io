@@ -11,7 +11,9 @@ import {
   FETCH_USER_PROFILES,
   FETCH_SESSION_USER,
   FETCH_SESSION_USER_PROFILE,
-  SET_ISLOADING_TRUE
+  SET_ISLOADING_TRUE,
+  CREATE_SUCCESS,
+  AUTH_MSG
 } from "./types";
 import history from "../history";
 
@@ -142,6 +144,7 @@ export function signinUser(creds) {
       })
       .catch(response => {
         console.log("Failed [signinUser].");
+        dispatch({ type: AUTH_MSG, payload: { type: 'danger', 'msg': '帳號或密碼有誤，請重新輸入。' } });
         console.log(response);
       });
   };
@@ -198,7 +201,9 @@ export function createUser({
       })
       .then(user_id => {
         dispatch(createUserProfile({ user: user_id, name, gender, role_id }));
-        dispatch(signinUser({ username, password }));
+        dispatch({ type: CREATE_SUCCESS });
+        history.push("/");
+        //dispatch(signinUser({ username, password }));
       })
       .catch(response => {
         console.log("[createUser] Failed.");

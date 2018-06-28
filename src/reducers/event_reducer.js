@@ -48,7 +48,7 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         event: {
-          objs: Object.assign({}, state.event.objs, action.payload),
+          objs: Object.assign({}, state.event.objs, {[action.payload.id]: action.payload}),
           ids: state.event.ids
         },
         isEventLoaded: true

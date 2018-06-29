@@ -249,7 +249,7 @@ export function updateTeamToEvent({ name, members, event_id }) {
     console.log("Start [updateTeamToEvent]");
 
     axios
-      .put(TEAM_URL, data)
+      .put(TEAM_URL + event_id + '/', data)
       .then(response => {
         const team_id = response.data.id;
         members.forEach(user_id => {

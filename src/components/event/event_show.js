@@ -79,6 +79,7 @@ class Events extends Component {
         regist_start,
         regist_end
       } = this.props.event;
+      console.log(this.props.event);
       return (
         <article className="card mt-4 pb-4">
           <div className="card-body">

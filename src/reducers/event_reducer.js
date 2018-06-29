@@ -2,6 +2,7 @@ import {
   FETCH_EVENTS,
   FETCH_EVENT,
   FETCH_TEAMS,
+  FETCH_TEAM,
   DELETE_EVENT,
   CREATE_EVENT,
   UPDATE_EVENT,
@@ -11,7 +12,8 @@ import {
   FETCH_TEAMID,
   SET_EVENTS_LOADED,
   SET_TEAMS_LOADED,
-  EVENT_MSG
+  EVENT_MSG,
+  SETTLE_TEAM
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -26,6 +28,8 @@ const INITIAL_STATE = {
     objs: {}
   },
   isTeamLoaded: false,
+  isTeamSettled: false,
+  currentTeamId: ``,
   message: ``
 };
 
@@ -87,6 +91,12 @@ export default function(state = INITIAL_STATE, action) {
         team: { objs: team_objs, ids: Object.keys(team_objs) },
         isTeamLoaded: true
       };
+    case SET_TEAMS_LOADED:
+      return { ...state, isTeamLoaded: action.payload };
+    case FETCH_TEAM:
+      return { ...state, currentTeamId: action.payload };
+    case SETTLE_TEAM:
+      return { ...state, isTeamSettled: action.payload };
     case EVENT_MSG: 
       return { ...state, message: action.payload };
     default:

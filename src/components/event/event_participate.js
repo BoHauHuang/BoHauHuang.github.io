@@ -10,6 +10,52 @@ class EventParticipate extends Component {
     this.props.fetchTeams();
   }
 
+  renderVerify(team) {
+    console.log(team);
+    console.log(team.verify);
+    if (team.verify) {
+      return (
+        <div className="mt-2">
+        
+          <i className="fas fa-clock w-20" /> 送出報名時間：{moment(
+            team.created_at
+          ).format("YYYY/MM/DD HH:mm:ss")}
+          <div>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                if (confirm("確定要放棄參賽嗎？")) {
+                  const team_id = team.id;
+                  this.props.deleteParticipate(team_id);
+                }
+              }}
+            >
+              取消報名
+            </button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="mt-2">
+        
+        <Link
+              to={"/event/participation/" + team.id}
+              className="btn btn-warning"
+            >
+              修改報名
+            </Link>{" "}
+          <button
+            className="btn btn-primary"
+            onClick={() => this.props.verifyTeam(team, team.id)}
+          >
+            送出報名表
+          </button>
+        </div>
+      );
+    }
+  }
+
   renderParticipations() {
     const teamIds = this.props.userTeamIds;
     return teamIds.map(team_id => {
@@ -23,14 +69,16 @@ class EventParticipate extends Component {
           <div className="card mb-3">
             <h5 className="card-header">
               報名表 －
-              <Link to={"/event/" + event.id}>{event.name}</Link>{"  "}
-
+              <Link to={"/event/" + event.id}>{event.name}</Link>
+              {"  "}
             </h5>
-            <Link to={"/event/participation/"+ team.id} className="btn btn-warning"> 修改報名 </Link>
+            
             <div className="card-body">
               <ul className="list-unstyled mt-ˋ">
                 <li>
-                  <i className="fas fa-info-circle w-20" /> 報名表統一編號：{team.id}
+                  <i className="fas fa-info-circle w-20" /> 報名表統一編號：{
+                    team.id
+                  }
                 </li>
                 <li>
                   <i className="fas fa-info-circle w-20" /> 隊名：{team.name}
@@ -48,18 +96,8 @@ class EventParticipate extends Component {
                     })}
                   </ul>
                 </li>
-                <li>
-                  <i className="fas fa-clock w-20" /> 送出報名時間：{moment(
-                    team.created_at
-                  ).format("YYYY/MM/DD HH:mm:ss")}
-                </li>
+                <li>{this.renderVerify(team)}</li>
               </ul>
-              <button className="btn btn-danger" onClick={()=>{
-                if ( confirm("確定要放棄參賽嗎？") ) {
-                  const team_id = team.id;
-                  this.props.deleteParticipate(team_id);
-                }
-              }}> 取消報名 </button>
             </div>
           </div>
         );
@@ -75,7 +113,6 @@ class EventParticipate extends Component {
       }
     });
   }
-
 
   render() {
     if (this.props.userTeamIds) {

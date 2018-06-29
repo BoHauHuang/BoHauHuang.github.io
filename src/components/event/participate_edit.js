@@ -7,21 +7,39 @@ import moment from "moment";
 import history from "../../history";
 
 class EditParticipate extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    this.props.settleTeam(false);
+    this.props.fetchTeam(this.props.match.params.id);
+    this.props.fetchEvents();
+    this.props.fetchTeams();
   }
 
-  componentWillMount() {
-    this.props.fetchEvents();
-    this.props.fetchEvent(this.props.match.params.id);
+  componentWillReceiveProps(nextProps) {
+    console.log("nextProps");
+    console.log(nextProps);
+    if (nextProps.team && nextProps.isEventLoaded && !nextProps.isTeamSettled) {
+      const team = nextProps.team;
+      this.props.settleTeam(true);
+      this.props.initialize({
+        name: team.name,
+        members: team.userIds.map(user_id => {
+          return {
+            username: nextProps.auth.users.objs[user_id].username
+          };
+        })
+      });
+    }
   }
-  renderInput({
+
+ renderInput({
     input,
     label,
     type,
     size,
+    display,
     placeholder,
-    meta: { touched, error }
+    onClick,
+    meta: { touched, error, warning }
   }) {
     return (
       <div className="form-group">
@@ -31,7 +49,13 @@ class EditParticipate extends Component {
             {...input}
             className={
               "form-control " +
-              (touched ? (!error ? "is-valid " : "is-invalid ") : "") +
+              (touched
+                ? !error
+                  ? warning
+                    ? "is-valid "
+                    : ""
+                  : "is-invalid "
+                : "") +
               size
             }
             placeholder={placeholder}
@@ -41,11 +65,13 @@ class EditParticipate extends Component {
           <div className="invalid-feedback">
             {touched && error && <span>{error}</span>}
           </div>
+          <div className="feedback text-success">
+            {touched && warning && <span>{warning}</span>}
+          </div>
         </div>
       </div>
     );
   }
-
   handleEventRegister({ name, members }) {
     members = members.map(member => {
       const match_id = this.props.auth.users.ids.find(
@@ -53,41 +79,43 @@ class EditParticipate extends Component {
       );
       return match_id;
     });
-    const event_id = this.props.event.id;
+    const event_id = this.props.team.event_id;
 
     console.log({ name, members, event_id });
 
-    this.props.registerTeamToEvent({ name, members, event_id });
+    this.props.resetTeamMember(this.props.team.id);
+    this.props.updateTeamToEvent({ name, members, event_id });
   }
 
   renderMembers({ fields, meta: { error, submitFailed, warning } }) {
-
-        const { member_min, member_max, team_max } = this.props.event;
-        return (
-          <div>
-          {fields.map((member, index) => {
-            return (
-              <div key={index}>
-                <div className="row">
-                  <div className="col-sm-10">
-                    <Field
-                      name={`${member}.username`}
-                      type="text"
-                      component={this.renderInput}
-                      label={`隊員 ${index + 1} 學號`}
-                      />
-                  </div>
-                  <div className="col sm-2">
-                    <label>動作</label>
-                    <button
-                      type="button"
-                      className="btn btn-warning btn-block"
-                      title="移除"
-                      onClick={() => fields.remove(index)}
-                    >
+    const { member_min, member_max, team_max } = this.props.eventObjs[
+      this.props.team.event_id
+    ];
+    return (
+      <div>
+        {fields.map((member, index) => {
+          return (
+            <div key={index}>
+              <div className="row">
+                <div className="col-sm-10">
+                  <Field
+                    name={`${member}.username`}
+                    type="text"
+                    component={this.renderInput}
+                    label={`隊員 ${index + 1} 學號`}
+                  />
+                </div>
+                <div className="col sm-2">
+                  <label>動作</label>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-block"
+                    title="移除"
+                    onClick={() => fields.remove(index)}
+                  >
                     移除
-                    </button>
-                  </div>
+                  </button>
+                </div>
               </div>
             </div>
           );
@@ -108,10 +136,11 @@ class EditParticipate extends Component {
           )}
       </div>
     );
-}
+  }
 
   render() {
-    if (this.props.event) {
+    if (this.props.team && this.props.isEventLoaded) {
+      console.log(this.props.team.event_id);
       const {
         id,
         name,
@@ -122,10 +151,10 @@ class EditParticipate extends Component {
         team_max,
         regist_start,
         regist_end
-      } = this.props.event;
+      } = this.props.eventObjs[this.props.team.event_id];
       const { handleSubmit, fields } = this.props;
-      if ( !this.props.auth.authenticated ) {
-        history.push('/signin')
+      if (!this.props.auth.authenticated) {
+        history.push("/signin");
       }
       return (
         <div>
@@ -154,7 +183,11 @@ class EditParticipate extends Component {
         </div>
       );
     } else {
-      return <div><h3 className="md-4 mt-4">Loading...</h3></div>;
+      return (
+        <div>
+          <h3 className="md-4 mt-4">Loading...</h3>
+        </div>
+      );
     }
   }
 }
@@ -166,8 +199,8 @@ function validate(values, props) {
     errors.name = "請輸入隊名";
   }
 
-  if (props.isEventLoaded) {
-    const { member_min, member_max } = props.event;
+  if (props.isEventLoaded && props.isTeamLoaded) {
+    const { member_min, member_max } = props.eventObjs[props.team.event_id];
 
     if (!values.members || !values.members.length) {
       errors.members = {
@@ -239,18 +272,21 @@ function warn(values, props) {
 function mapStateToProps(state) {
   return {
     isTeamLoaded: state.event.isTeamLoaded,
-    event: state.event.event.objs[state.event.currentEventId],
+    eventObjs: state.event.event.objs,
+    team: state.event.team.objs[state.event.currentTeamId],
     isEventLoaded: state.event.isEventLoaded,
     auth: state.auth,
-    initialValues: {
-
-      members:[{}]
-    }
-
+    isTeamSettled: state.event.isTeamSettled
   };
 }
 
 export default connect(
   mapStateToProps,
   editActions
-)(reduxForm({ form: "EditParticipate", validate, warn })(EditParticipate));
+)(
+  reduxForm({
+    form: "EditParticipate",
+    validate,
+    warn
+  })(EditParticipate)
+);

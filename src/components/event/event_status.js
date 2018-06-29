@@ -11,6 +11,26 @@ class EventParticipate extends Component {
     this.props.fetchTeams();
   }
 
+  renderVerify(team) {
+    if (team.verify) {
+      return (
+        <span className="text-success">
+          <i className="fas fa-clock w-20" /> 送出報名時間：{moment(
+            team.updated_at
+          ).format("YYYY/MM/DD HH:mm:ss")}
+        </span>
+      );
+    } else {
+      return (
+        <span className="text-warning">
+          <i className="fas fa-clock w-20" /> 最後儲存時間：{moment(
+            team.updated_at
+          ).format("YYYY/MM/DD HH:mm:ss")}
+        </span>
+      );
+    }
+  }
+
   renderParticipations() {
     const teamIds = this.props.eventTeamIds;
     return teamIds.map((team_id, index) => {
@@ -42,13 +62,8 @@ class EventParticipate extends Component {
                     })}
                   </ul>
                 </li>
-                <li>
-                  <i className="fas fa-clock w-20" /> 送出報名時間：{moment(
-                    team.created_at
-                  ).format("YYYY/MM/DD HH:mm:ss")}
-                </li>
+                <li>{this.renderVerify(team)}</li>
               </ul>
-
             </div>
           </div>
         );
@@ -74,13 +89,18 @@ class EventParticipate extends Component {
               <div className="row">
                 <div className="col">
                   <h3 className="event-title">
-                    報名狀況 － {this.props.event.name} ({this.props.eventTeamIds.length} / {this.props.event.team_max})
+                    報名狀況 － {this.props.event.name}
                   </h3>
                 </div>
               </div>
             </header>
             <div className="content">{this.renderParticipations()}</div>
-            <Link to={"/event/" + this.props.event.id} className="btn btn-primary btn-block">回活動網頁</Link>
+            <Link
+              to={"/event/" + this.props.event.id}
+              className="btn btn-primary btn-block"
+            >
+              回活動網頁
+            </Link>
           </article>
         );
       } else {
@@ -89,9 +109,7 @@ class EventParticipate extends Component {
             <header className="mb-4">
               <div className="row">
                 <div className="col">
-                  <h3 className="event-title">
-                    報名狀況
-                  </h3>
+                  <h3 className="event-title">報名狀況</h3>
                 </div>
               </div>
             </header>

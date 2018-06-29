@@ -106,7 +106,7 @@ class Events extends Component {
               <tr>
                 <th>活動名稱</th>
                 <th>
-                  <i className="fas fa-calendar w-20" /> 活動日期
+                  <i className="fas fa-calendar w-20" /> 活動時間
                 </th>
                 <th>
                   <i className="fas fa-calendar w-20" /> 報名期間

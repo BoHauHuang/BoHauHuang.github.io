@@ -23,6 +23,8 @@ export const DELETE_ANNOUNCEMENT = 'delete_announcement';
 export const FETCH_EVENT = 'fetch_event';
 export const FETCH_EVENTS = 'fetch_events';
 export const FETCH_TEAMS = 'fetch_teams';
+export const FETCH_TEAM = 'FETCH_TEAM';
+export const SETTLE_TEAM = 'SETTLE_TEAM';
 export const SET_TEAMS_LOADED = 'SET_TEAMS_LOADED';
 
 export const CREATE_EVENT = 'CREATE_EVENT';

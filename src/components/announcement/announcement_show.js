@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import * as actions from "../../actions/announcement";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
 
 class AnncouncementShow extends Component {

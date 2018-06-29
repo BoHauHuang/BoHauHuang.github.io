@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import * as actions from "../../actions/announcement";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
 
 class AnncouncementIndex extends Component {
@@ -19,7 +19,7 @@ class AnncouncementIndex extends Component {
         return (
           <article className="bdb mb-4" key={id}>
             <header>
-              <Link to={"/announcement/" + id}>
+              <Link to={"/announcement/"+id}>
                 <h4 className="announcement-title">{post.title}</h4>
               </Link>
               <div className="announcement-meta">

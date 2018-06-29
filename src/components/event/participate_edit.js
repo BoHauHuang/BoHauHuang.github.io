@@ -20,10 +20,8 @@ class EditParticipate extends Component {
     label,
     type,
     size,
-    display,
     placeholder,
-    onClick,
-    meta: { touched, error, warning }
+    meta: { touched, error }
   }) {
     return (
       <div className="form-group">
@@ -33,13 +31,7 @@ class EditParticipate extends Component {
             {...input}
             className={
               "form-control " +
-              (touched
-                ? !error
-                  ? warning
-                    ? "is-valid "
-                    : ""
-                  : "is-invalid "
-                : "") +
+              (touched ? (!error ? "is-valid " : "is-invalid ") : "") +
               size
             }
             placeholder={placeholder}
@@ -48,9 +40,6 @@ class EditParticipate extends Component {
           <div className="valid-feedback">{touched && !error}</div>
           <div className="invalid-feedback">
             {touched && error && <span>{error}</span>}
-          </div>
-          <div className="feedback text-success">
-            {touched && warning && <span>{warning}</span>}
           </div>
         </div>
       </div>
@@ -72,37 +61,37 @@ class EditParticipate extends Component {
   }
 
   renderMembers({ fields, meta: { error, submitFailed, warning } }) {
-    const { member_min, member_max, team_max } = this.props.event;
-    return (
-      <div>
-        {fields.map((member, index) => {
-          return (
-            <div key={index}>
-              <div className="row">
-                <div className="col-sm-10">
-                  <Field
-                    name={`${member}.username`}
-                    type="text"
-                    component={this.renderInput}
-                    label={`隊員 ${index + 1} 學號`}
-                  />
-                </div>
-                <div className="col sm-2">
-                  <label>動作</label>
-                  <button
-                    type="button"
-                    className="btn btn-warning btn-block"
-                    title="移除"
-                    onClick={() => fields.remove(index)}
-                  >
+
+        const { member_min, member_max, team_max } = this.props.event;
+        return (
+          <div>
+          {fields.map((member, index) => {
+            return (
+              <div key={index}>
+                <div className="row">
+                  <div className="col-sm-10">
+                    <Field
+                      name={`${member}.username`}
+                      type="text"
+                      component={this.renderInput}
+                      label={`隊員 ${index + 1} 學號`}
+                      />
+                  </div>
+                  <div className="col sm-2">
+                    <label>動作</label>
+                    <button
+                      type="button"
+                      className="btn btn-warning btn-block"
+                      title="移除"
+                      onClick={() => fields.remove(index)}
+                    >
                     移除
-                  </button>
-                </div>
+                    </button>
+                  </div>
               </div>
             </div>
           );
         })}
-
         <button
           type="button"
           onClick={() => fields.push({})}
@@ -119,7 +108,7 @@ class EditParticipate extends Component {
           )}
       </div>
     );
-  }
+}
 
   render() {
     if (this.props.event) {
@@ -141,7 +130,7 @@ class EditParticipate extends Component {
       return (
         <div>
           <div className="mb-4">
-            <h3 className="mb-4 mt-4">{name} － 填寫報名表</h3>
+            <h3 className="mb-4 mt-4">{name} － 編輯報名表</h3>
             <form onSubmit={handleSubmit(this.handleEventRegister.bind(this))}>
               <Field
                 name="name"
@@ -165,7 +154,7 @@ class EditParticipate extends Component {
         </div>
       );
     } else {
-      return <div>Loading...</div>;
+      return <div><h3 className="md-4 mt-4">Loading...</h3></div>;
     }
   }
 }
@@ -249,12 +238,15 @@ function warn(values, props) {
 
 function mapStateToProps(state) {
   return {
+    isTeamLoaded: state.event.isTeamLoaded,
     event: state.event.event.objs[state.event.currentEventId],
     isEventLoaded: state.event.isEventLoaded,
     auth: state.auth,
     initialValues: {
-      members: [{}]
+
+      members:[{}]
     }
+
   };
 }
 

@@ -21,7 +21,8 @@ import {
   SET_EVENTS_LOADED,
   SET_TEAMS_LOADED,
   EVENT_MSG,
-  REGISTER_USER_TEAM
+  REGISTER_USER_TEAM,
+  UPDATE_USER_TEAM
 } from "./types";
 
 const token = localStorage.getItem("token");

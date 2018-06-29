@@ -12,6 +12,7 @@ import {
   IndexRoute,
   browserHistory,
   withRouter,
+  Link,
   Switch,
   match
 } from "react-router-dom";
@@ -70,8 +71,6 @@ ReactDOM.render(
               <Route path="/signup" component={Signup} />
               <Route path="/signout" component={Signout} />
               <Route path="/profile" component={Profile} />
-
-              <Route path="/announcement" component={AnnouncementIndex} />
               <Route
                 path="/announcement/create"
                 component={AnnouncementCreate}
@@ -82,9 +81,13 @@ ReactDOM.render(
               />
               <Route path="/announcement/:id" component={AnnouncementShow} />
 
+              <Route path="/announcement" component={AnnouncementIndex} />
+
+
               <Route path="/event/add" component={AddEvent} />
-              <Route path="/event/participation" component={EventParticipate} />
               <Route path="/event/participation/:id" component={EditParticipate} />
+              <Route path="/event/participation" component={EventParticipate} />
+
               <Route path="/event/:id/edit" component={EditEvent} />
               <Route path="/event/:id/join" component={SignupEvent} />
               <Route path="/event/:id/status" component={EventStatus} />

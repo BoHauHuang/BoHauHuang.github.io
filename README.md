@@ -1,10 +1,8 @@
 <div>
 <h2> Database Project - NCTU Sport </h2>
   <div>
-    <ul>
-    <li>[Website Structure document](https://docs.google.com/document/d/1-tGf4mAURJtIuZBrIPhpAbiM3jcnGlBLYOe_mkVOKXU/edit?usp=sharing)</li>
-      <li>[Website Back-End Codes](https://github.com/ggh93234999/database_project_v2)</li>
-    </ul>
+    [Website Structure document](https://docs.google.com/document/d/1-tGf4mAURJtIuZBrIPhpAbiM3jcnGlBLYOe_mkVOKXU/edit?usp=sharing)
+    [Website Back-End Codes](https://github.com/ggh93234999/database_project_v2)
   </div>
   <div>
     <ul>

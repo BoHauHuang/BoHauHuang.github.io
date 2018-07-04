@@ -1,8 +1,8 @@
 <div>
-  <h2> NCTU Sport </h2>
+<h2> NCTU Sport </h2>
   <div>
     <ul>
-      <h3>Programming Language:</h3>
+<h3>Programming Language:</h3>
       <li>Front End : Javascript (ES6)</li>
       <li>Back End : Python 3</li>
     </ul>
@@ -22,8 +22,9 @@
     </ul>
   </div>
   <div>
-    <h3>Database:SQLite</h3>
+    <h4>Database:SQLite</h4>
   </div>
   <div>
-    <h3>Server Email: nctudatabase@gmail.com</h3>
+    <h4>Server Email: nctudatabase@gmail.com</h4>
   </div>
+</div>

@@ -2,6 +2,12 @@
 <h2> Database Project - NCTU Sport </h2>
   <div>
     <ul>
+    <li>[Website Structure document](https://docs.google.com/document/d/1-tGf4mAURJtIuZBrIPhpAbiM3jcnGlBLYOe_mkVOKXU/edit?usp=sharing)</li>
+      <li>[Website Back-End Codes](https://github.com/ggh93234999/database_project_v2)</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
 <h3>Programming Language:</h3>
       <li>Front End : Javascript (ES6)</li>
       <li>Back End : Python 3</li>
@@ -26,8 +32,5 @@
   </div>
   <div>
     <h4>Server Email: nctudatabase@gmail.com</h4>
-  </div>
-  <div>
-    <h4>Back-End Codes: https://github.com/ggh93234999/database_project_v2 </h4>
   </div>
 </div>

@@ -1,15 +1,17 @@
 <div>
   <h2> NCTU Sport </h2>
   <ul>
-    <div><li>Programming Language</li><div>
+    <div><h3>Programming Language</h3><div>
   </ul>
   
   
   
   <div>
-    <h3> Programming Language:</h3>
-    <h4>Front End : Javascript (ES6)</h4>
-    <h4>Back End : Python 3</h4>
+    <ol>
+      <h3>Programming Language:</h3>
+      <li>Front End : Javascript (ES6)</li>
+      <li>Back End : Python 3</li>
+    </ol>
   </div>
   <div>
     <h3>Framework:</h3>

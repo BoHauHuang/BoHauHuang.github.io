@@ -33,7 +33,7 @@
     "babel-preset-stage-1": "^6.1.18",
     "bootstrap": "^4.0.0",
     "history": "^4.7.2",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.21",
     "moment": "^2.22.2",
     "npm": "^6.0.0",
     "react": "^0.14.3",
